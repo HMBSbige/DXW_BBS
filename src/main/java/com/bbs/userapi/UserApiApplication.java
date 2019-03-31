@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
@@ -23,11 +24,26 @@ public class UserApiApplication {
     @Bean
     CommandLineRunner init(ReactiveMongoOperations operations, UserRepository userRepository) {
         return args -> {
-            Flux<User> productFlux = Flux.just(
+//            userRepository
+//                    .deleteAll()
+//                    .then().block();
+
+            Flux<User> productFlux = userRepository
+                    .deleteAll()
+                    .thenMany(
+                            Flux
+                            .just(
                     new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
                     new User(null, "Gladiator", "Drama/Action", LocalDateTime.now()),
                     new User(null, "Black Panther", "Action", LocalDateTime.now()))
-                    .flatMap(userRepository::save);
+                            .flatMap(userRepository::save)
+                    );
+
+//            Flux<User> productFlux = Flux.just(
+//                    new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
+//                    new User(null, "Gladiator", "Drama/Action", LocalDateTime.now()),
+//                    new User(null, "Black Panther", "Action", LocalDateTime.now()))
+//                    .flatMap(userRepository::save);
 
             productFlux
                     .thenMany(userRepository.findAll())
