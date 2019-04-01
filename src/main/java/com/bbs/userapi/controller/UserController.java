@@ -31,6 +31,13 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public Flux<User> findByName(@PathVariable("name") String name) {
+        return userRepository.findByName(name);
+    }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<User> saveMovie(@RequestBody User movie){
