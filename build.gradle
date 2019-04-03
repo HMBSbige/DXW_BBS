@@ -36,6 +36,7 @@ dependencies {
     // implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'org.projectlombok:lombok'
     testImplementation ('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.projectreactor:reactor-test')
