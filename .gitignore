@@ -328,3 +328,51 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+
+
+
+
+
+
+
+*.class
+
+
+
+# Mobile Tools for Java (J2ME)
+
+.mtj.tmp/
+
+
+
+# Package Files #
+
+*.jar
+
+*.war
+
+*.ear
+
+
+
+#Gradle temporary files
+
+target/
+
+
+
+
+#IntelliJ files
+
+**/*.iml
+
+**/.idea
+
+**/.gradle
+
+
+
+# properties files
+
+**/application.properties

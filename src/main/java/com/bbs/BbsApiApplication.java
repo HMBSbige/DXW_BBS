@@ -33,16 +33,16 @@ public class BbsApiApplication {
                     .deleteAll()
                     .then().block();
 
-            Flux<User> productFlux = userRepository
-                    .deleteAll()
-                    .thenMany(
-                            Flux
-                            .just(
-                    new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
-                    new User(null, "Gladiator", "Drama/Action", LocalDateTime.now()),
-                    new User(null, "Black Panther", "Action", LocalDateTime.now()))
-                            .flatMap(userRepository::save)
-                    );
+//            Flux<User> productFlux = userRepository
+//                    .deleteAll()
+//                    .thenMany(
+//                            Flux
+//                            .just(
+//                    new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
+//                    new User(null, "Gladiator", "Drama/Action", LocalDateTime.now()),
+//                    new User(null, "Black Panther", "Action", LocalDateTime.now()))
+//                            .flatMap(userRepository::save)
+//                    );
 
 //            Flux<User> productFlux = Flux.just(
 //                    new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
@@ -50,9 +50,9 @@ public class BbsApiApplication {
 //                    new User(null, "Black Panther", "Action", LocalDateTime.now()))
 //                    .flatMap(userRepository::save);
 
-            productFlux
-                    .thenMany(userRepository.findAll())
-                    .subscribe(System.out::println);
+//            productFlux
+//                    .thenMany(userRepository.findAll())
+//                    .subscribe(System.out::println);
         };
     }
 }

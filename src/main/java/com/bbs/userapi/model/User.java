@@ -1,88 +1,78 @@
 package com.bbs.userapi.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.bbs.userapi.security.model.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+@ToString @AllArgsConstructor @NoArgsConstructor
+public class User implements UserDetails {
 
-@Document
-public class User {
+    private static final long serialVersionUID = 1L;
 
-    @Id
-    private String id;
-
-    private String name;
+    private String username;
 
     private String password;
 
-    private LocalDateTime lastLoginTime;
+    @Getter @Setter
+    private Boolean enabled;
 
-    public User() {
+    @Getter @Setter
+    private List<Role> roles;
+
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public User(String id, String name, String password, LocalDateTime lastLoginTime) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.lastLoginTime = lastLoginTime;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean isEnabled() {
+        return this.enabled;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList());
+    }
+
+    @JsonIgnore
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Movie movie = (Movie) o;
-//        return Objects.equals(id, movie.id) &&
-//                Objects.equals(name, movie.name) &&
-//                Objects.equals(genre, movie.genre) &&
-//                Objects.equals(releaseDate, movie.releaseDate);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, genre, releaseDate);
-//    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", lastLoginTime=" + lastLoginTime +
-                '}';
-    }
 }

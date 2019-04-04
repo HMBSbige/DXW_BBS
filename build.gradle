@@ -33,10 +33,14 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     // https://stackoverflow.com/questions/40228036/how-to-turn-off-spring-security-in-spring-boot-application
-    // implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'com.fasterxml.jackson.core:jackson-annotations'
     implementation 'org.projectlombok:lombok'
+    // https://stackoverflow.com/questions/53809244/difficulty-importing-jwt-json-web-token-in-spring-boot-gradle-project
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+    runtime 'io.jsonwebtoken:jjwt-impl'
+    runtime 'io.jsonwebtoken:jjwt-jackson'
     testImplementation ('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.projectreactor:reactor-test')

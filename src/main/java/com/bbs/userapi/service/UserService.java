@@ -1,42 +1,32 @@
 package com.bbs.userapi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.bbs.userapi.model.repository.UserRepository;
 import com.bbs.userapi.model.User;
-
-import reactor.core.publisher.Flux;
+import com.bbs.userapi.security.model.Role;
+import java.util.Arrays;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class UserService implements IUserService {
+public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    // this is just an example, you can load the user from the database from the repository
 
-    public void create(User e) {
-        userRepository.save(e).subscribe();
-    }
+    //username:passwowrd -> user:user
+    private final String userUsername = "user";// password: user
+    private final User user = new User(userUsername, "cBrlgyL2GI2GINuLUUwgojITuIufFycpLG4490dhGtY=", true, Arrays.asList(Role.ROLE_USER));
 
-    public Mono<User> findById(String id) {
-        return userRepository.findById(id);
-    }
+    //username:passwowrd -> admin:admin
+    private final String adminUsername = "admin";// password: admin
+    private final User admin = new User(adminUsername, "dQNjUIMorJb8Ubj2+wVGYp6eAeYkdekqAcnYp+aRq5w=", true, Arrays.asList(Role.ROLE_ADMIN));
 
-    public Flux<User> findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
-    public Flux<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public Mono<User> update(User u) {
-        return userRepository.save(u);
-    }
-
-    public Mono<Void> delete(String id) {
-        return userRepository.deleteById(id);
+    public Mono<User> findByUsername(String username) {
+        if (username.equals(userUsername)) {
+            return Mono.just(user);
+        } else if (username.equals(adminUsername)) {
+            return Mono.just(admin);
+        } else {
+            return Mono.empty();
+        }
     }
 
 }

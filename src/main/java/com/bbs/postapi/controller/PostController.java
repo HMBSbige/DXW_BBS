@@ -50,7 +50,9 @@ public class PostController {
     public Mono<Post> saveComment(@PathVariable(value = "id") String parentId, @RequestBody Post post){
         LocalDateTime time=LocalDateTime.now();
         return postRepository.save(
-                new Post(null, "Author", post.getContent(), parentId, post.getCommunity(), time, time));
+                new Post(null, "Author", post.getContent(),
+                        parentId, post.getCommunity(), 0,
+                        true, false, time, time));
     }
 
     @PutMapping("{id}")

@@ -9,9 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Document
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Post {
 
     @Id
@@ -25,6 +23,12 @@ public class Post {
 
     private String community;
 
+    private int upvote;
+
+    private boolean visibility;
+
+    private boolean deleted;
+
     private LocalDateTime initTime;
 
     private LocalDateTime lastUpdateTime;
@@ -37,6 +41,9 @@ public class Post {
         this.content = content;
         this.parentId = null;
         this.community = community;
+        this.upvote = 0;
+        this.visibility = true;
+        this.deleted = false;
         this.initTime = initTime;
         this.lastUpdateTime = lastUpdateTime;
     }
