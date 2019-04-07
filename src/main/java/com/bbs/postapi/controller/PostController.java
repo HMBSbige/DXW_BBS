@@ -1,14 +1,19 @@
 package com.bbs.postapi.controller;
 
-import com.bbs.postapi.model.Post;
-import com.bbs.postapi.model.repository.PostRepository;
+import java.security.Principal;
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
+import com.bbs.postapi.model.Post;
+import com.bbs.postapi.model.repository.PostRepository;
+import com.bbs.postapi.exception.UserIdNotMatchException;
 
 @RestController
 @RequestMapping("/posts")
@@ -16,69 +21,90 @@ public class PostController {
 
     private PostRepository postRepository;
 
-    public PostController(PostRepository postRepository){
+    public PostController(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
     @GetMapping
-    public Flux<Post> getMovies(){
+    public Flux<Post> getPosts() {
         return postRepository.findAll();
     }
 
     @GetMapping("/parentId/{parentId}")
-    public Flux<Post> getPostByParentId(@PathVariable String parentId){
+    public Flux<Post> getPostByParentId(@PathVariable String parentId) {
         return postRepository.findByParentId(parentId);
     }
 
     @GetMapping("{id}")
-    public Mono<ResponseEntity<Post>> getPost(@PathVariable String id){
+    public Mono<ResponseEntity<Post>> getPost(@PathVariable String id) {
         return postRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+            .map(ResponseEntity::ok)
+            .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Post> savePost(@RequestBody Post post){
-        LocalDateTime time=LocalDateTime.now();
-        return postRepository.save(
-                new Post(null, "Author", post.getContent(), post.getCommunity(), time, time));
+    public Mono<ResponseEntity<Post>> savePost(@RequestBody Post post_in_request, Mono<Principal> principal) {
+        LocalDateTime time = LocalDateTime.now();
+        return principal
+            .map(Principal::getName)
+            .flatMap(username -> postRepository.save(
+                new Post(null, username, post_in_request.getContent(), post_in_request.getCommunity(), time, time))
+            )
+            .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @PostMapping("{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Post> saveComment(@PathVariable(value = "id") String parentId, @RequestBody Post post){
-        LocalDateTime time=LocalDateTime.now();
-        return postRepository.save(
-                new Post(null, "Author", post.getContent(),
-                        parentId, post.getCommunity(), 0,
-                        true, false, time, time));
+    public Mono<ResponseEntity<Post>> saveComment(@PathVariable(value = "id") String parentId, @RequestBody Post post_in_request, Mono<Principal> principal) {
+        LocalDateTime time = LocalDateTime.now();
+        return principal
+            .map(Principal::getName)
+            .flatMap(username -> postRepository.save(new Post(
+                null, username, post_in_request.getContent(),
+                parentId, post_in_request.getCommunity(), 0,
+                true, false, time, time))
+            )
+            .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @PutMapping("{id}")
-    public Mono<ResponseEntity<Post>> updatePost(@PathVariable(value = "id") String id, @RequestBody Post post){
-        return postRepository.findById(id)
+    public Mono<ResponseEntity<Post>> updatePost(@PathVariable(value = "id") String id, @RequestBody Post post, Mono<Principal> principal) {
+        return principal
+            .map(Principal::getName)
+            .flatMap(username -> postRepository.findById(id)
+                .filter(existingPost -> username.equals(existingPost.getAuthor()))
                 .flatMap(existingPost -> {
+                    System.out.println(username);
+                    System.out.println(existingPost.getAuthor());
                     existingPost.setContent(post.getContent());
                     existingPost.setLastUpdateTime(post.getLastUpdateTime());
                     return postRepository.save(existingPost);
                 })
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
+            )
+            .map(ResponseEntity::ok)
+            // https://stackoverflow.com/questions/44273112/onerrorresume-not-working-as-expected
+            .onErrorResume(UserIdNotMatchException.class, e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @DeleteMapping("{id}")
-    public Mono<ResponseEntity<Void>> deletePost(@PathVariable(value = "id") String id){
-        return postRepository.findById(id)
-                .flatMap(existingPost ->
-                        postRepository.delete(existingPost)
-                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+    public Mono<ResponseEntity<Void>> deletePost(@PathVariable(value = "id") String id, Mono<Principal> principal) {
+        return principal
+            .map(Principal::getName)
+            .flatMap(username -> postRepository.findById(id)
+                .filter(existingPost -> username.equals(existingPost.getAuthor()))
+                .flatMap(existingPost -> postRepository.delete(existingPost))
+                .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
+            )
+            .map(ResponseEntity::ok)
+            .onErrorResume(UserIdNotMatchException.class, e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @DeleteMapping
-    public Mono<Void> deleteAllPosts(){
+    public Mono<Void> deleteAllPosts() {
         return postRepository.deleteAll();
     }
 }

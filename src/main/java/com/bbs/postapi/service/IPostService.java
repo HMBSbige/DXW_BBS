@@ -10,8 +10,6 @@ public interface IPostService {
 
     Mono<Post> findById(String id);
 
-    Flux<Post> findByParentId(String parentId);
-
     Flux<Post> findAll();
 
     Mono<Post> update(Post e);

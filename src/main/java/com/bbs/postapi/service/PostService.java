@@ -22,10 +22,6 @@ public class PostService implements IPostService {
         return postRepository.findById(id);
     }
 
-    public Flux<Post> findByParentId(String parentId) {
-        return postRepository.findAll();
-    }
-
     public Flux<Post> findAll() {
         return postRepository.findAll();
     }

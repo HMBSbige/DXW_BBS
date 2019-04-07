@@ -6,6 +6,7 @@ import com.bbs.userapi.security.model.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Document
 @ToString @AllArgsConstructor @NoArgsConstructor
 public class User implements UserDetails {
 

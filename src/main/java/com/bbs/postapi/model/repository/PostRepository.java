@@ -8,4 +8,7 @@ import com.bbs.postapi.model.Post;
 public interface PostRepository extends ReactiveMongoRepository<Post, String>{
     @Query("{ 'parentId': ?0 }")
     Flux<Post> findByParentId(final String parentId);
+
+    @Query("{ 'id': ?0, 'author': ?1 }")
+    Flux<Post> findByIdAndAuthor(final String Id, final String author);
 }
