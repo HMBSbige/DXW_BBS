@@ -27,6 +27,9 @@ public class PostController {
 
     @GetMapping
     public Flux<Post> getPosts() {
+        // TODO: get posts with multithread and pagination
+        // https://zupzup.org/kotlin-webflux-example/
+        // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
         return postRepository.findAll();
     }
 
@@ -75,8 +78,8 @@ public class PostController {
             .flatMap(username -> postRepository.findById(id)
                 .filter(existingPost -> username.equals(existingPost.getAuthor()))
                 .flatMap(existingPost -> {
-                    System.out.println(username);
-                    System.out.println(existingPost.getAuthor());
+//                    System.out.println(username);
+//                    System.out.println(existingPost.getAuthor());
                     existingPost.setContent(post.getContent());
                     existingPost.setLastUpdateTime(post.getLastUpdateTime());
                     return postRepository.save(existingPost);
@@ -99,7 +102,8 @@ public class PostController {
                 .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
             )
             .map(ResponseEntity::ok)
-            .onErrorResume(UserIdNotMatchException.class, e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .onErrorResume(UserIdNotMatchException.class,
+                e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
