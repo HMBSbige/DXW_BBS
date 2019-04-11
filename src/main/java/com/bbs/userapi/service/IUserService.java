@@ -1,8 +1,8 @@
 package com.bbs.userapi.service;
 
+import com.bbs.userapi.model.User;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import com.bbs.userapi.model.User;
 
 public interface IUserService {
 

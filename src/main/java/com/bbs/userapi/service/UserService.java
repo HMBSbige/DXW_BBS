@@ -1,17 +1,17 @@
 package com.bbs.userapi.service;
 
-import java.util.Arrays;
+import com.bbs.userapi.model.User;
+import com.bbs.userapi.model.repository.UserRepository;
+import com.bbs.userapi.security.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
-import com.bbs.userapi.model.User;
-import com.bbs.userapi.service.IUserService;
-import com.bbs.userapi.security.model.Role;
-import com.bbs.userapi.model.repository.UserRepository;
+import reactor.core.publisher.Mono;
+
+import java.util.Arrays;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     // this is just an example, you can load the user from the database from the repository
 

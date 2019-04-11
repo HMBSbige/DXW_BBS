@@ -1,7 +1,13 @@
 package com.bbs.userapi.controller;
 
-import java.util.Arrays;
-
+import com.bbs.userapi.model.User;
+import com.bbs.userapi.model.repository.UserRepository;
+import com.bbs.userapi.security.JWTUtil;
+import com.bbs.userapi.security.PBKDF2Encoder;
+import com.bbs.userapi.security.model.AuthRequest;
+import com.bbs.userapi.security.model.AuthResponse;
+import com.bbs.userapi.security.model.Role;
+import com.bbs.userapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,16 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-import com.bbs.userapi.model.User;
-import com.bbs.userapi.security.model.Role;
-import com.bbs.userapi.security.JWTUtil;
-import com.bbs.userapi.security.PBKDF2Encoder;
-import com.bbs.userapi.security.model.AuthRequest;
-import com.bbs.userapi.security.model.AuthResponse;
-import com.bbs.userapi.service.UserService;
-import com.bbs.userapi.model.repository.UserRepository;
-
-import javax.validation.constraints.Null;
+import java.util.Arrays;
 
 @RestController
 public class AuthenticationController {
@@ -54,13 +51,13 @@ public class AuthenticationController {
         // https://stackoverflow.com/questions/54554581/spring-webflux-how-to-get-data-from-request
         // https://stackoverflow.com/questions/52491405/how-to-combine-flux-and-responseentity-in-spring-webflux-controllers
         return userRepository.findByUsername(ar.getUsername())
-            .map((userDetails) -> new ResponseEntity<Object>(HttpStatus.CONFLICT))
-            .switchIfEmpty(Mono
-                .just(new User(
-                    ar.getUsername(), passwordEncoder.encode(ar.getPassword()), true, Arrays.asList(Role.ROLE_USER)))
-                .flatMap(user -> userRepository_.save(user))
-                .map(user -> ResponseEntity.status(HttpStatus.CREATED).build())
-            );
+                .map((userDetails) -> new ResponseEntity<Object>(HttpStatus.CONFLICT))
+                .switchIfEmpty(Mono
+                        .just(new User(
+                                ar.getUsername(), passwordEncoder.encode(ar.getPassword()), true, Arrays.asList(Role.ROLE_USER)))
+                        .flatMap(user -> userRepository_.save(user))
+                        .map(user -> ResponseEntity.status(HttpStatus.CREATED).build())
+                );
     }
 
 }

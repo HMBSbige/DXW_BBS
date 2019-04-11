@@ -1,8 +1,8 @@
 package com.bbs.postapi.service;
 
+import com.bbs.postapi.model.Post;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import com.bbs.postapi.model.Post;
 
 public interface IPostService {
 

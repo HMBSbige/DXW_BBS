@@ -1,12 +1,11 @@
 package com.bbs.postapi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.bbs.postapi.service.IPostService;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import com.bbs.postapi.model.Post;
 import com.bbs.postapi.model.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class PostService implements IPostService {

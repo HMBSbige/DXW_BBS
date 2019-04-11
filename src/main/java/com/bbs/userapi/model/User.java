@@ -1,23 +1,22 @@
 package com.bbs.userapi.model;
 
+import com.bbs.userapi.security.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.bbs.userapi.security.model.Role;
+import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Document
-@ToString @AllArgsConstructor @NoArgsConstructor
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -26,10 +25,12 @@ public class User implements UserDetails {
 
     private String password;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Boolean enabled;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private List<Role> roles;
 
     @Override

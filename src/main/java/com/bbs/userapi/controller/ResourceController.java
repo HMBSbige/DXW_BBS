@@ -1,7 +1,5 @@
 package com.bbs.userapi.controller;
 
-import java.security.Principal;
-
 import com.bbs.userapi.model.Message;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/resource")
@@ -37,8 +37,8 @@ public class ResourceController {
         // https://stackoverflow.com/questions/47503873/how-to-get-the-authentication-object-with-spring-webflux
         return principal
                 .map(Principal::getName)
-                .flatMap(username->
-                        Mono.just(ResponseEntity.ok(new Message("Content for user or admin "+username)))
+                .flatMap(username ->
+                        Mono.just(ResponseEntity.ok(new Message("Content for user or admin " + username)))
                 );
     }
 }
