@@ -46,3 +46,9 @@ springbootwebfluxjjwt.password.encoder.keylength=256
 springbootwebfluxjjwt.jjwt.secret=xxxxxxx
 springbootwebfluxjjwt.jjwt.expiration=28800
 ```
+
+## 运行 Mongo 服务器
+`docker run --name=mongo -p 27017:27017 -v ~/db:/data/db -d mongo`
+
+`~/db` 为自己的 mongo 数据存储目录
+
