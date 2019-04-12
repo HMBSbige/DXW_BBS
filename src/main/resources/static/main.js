@@ -42,6 +42,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./homepage/homepage.component */ "./src/app/homepage/homepage.component.ts");
 /* harmony import */ var _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pull-post/pull-post.component */ "./src/app/pull-post/pull-post.component.ts");
 /* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _community_community_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./community/community.component */ "./src/app/community/community.component.ts");
+
 
 
 
@@ -58,7 +60,8 @@ var routes = [
     { path: 'post', component: _post_post_component__WEBPACK_IMPORTED_MODULE_5__["PostComponent"] },
     { path: 'detail/:id', component: _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_4__["PostDetailComponent"] },
     { path: 'post/pull', component: _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_7__["PullPostComponent"] },
-    { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"] }
+    { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"] },
+    { path: 'community', component: _community_community_component__WEBPACK_IMPORTED_MODULE_9__["CommunityComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -94,7 +97,7 @@ module.exports = "ul\r\n{\r\n  list-style-type: none;\r\n  margin: 10;\r\n  padd
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n<html style=\"background:rgb(224, 254, 255)\">\n  <head>\n\n  </head>\n  <body>\n    <div>\n        <ul>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/homepage\">开花论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/post\">论坛</button></li>\n          <li><button mat-raised-button color=\"primary\">主页</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/register\">注册</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/login\">登录</button></li>\n        </ul>\n    </div>\n    <hr />\n\n    <router-outlet></router-outlet>\n  </body>\n</html>"
+module.exports = "<!DOCTYPE html>\n<html style=\"background:rgb(224, 254, 255)\">\n  <head>\n\n  </head>\n  <body>\n    <div>\n        <ul>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/homepage\">开花论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/post\">论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/community\">板块</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/register\">注册</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/login\">登录</button></li>\n        </ul>\n    </div>\n    <hr />\n\n    <router-outlet></router-outlet>\n  </body>\n</html>"
 
 /***/ }),
 
@@ -197,14 +200,15 @@ var AppModule = /** @class */ (function () {
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_8__["BrowserAnimationsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_5__["HttpClientInMemoryWebApiModule"].forRoot(_in_memory_data_service__WEBPACK_IMPORTED_MODULE_6__["InMemoryDataService"], { dataEncapsulation: false }),
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatButtonModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatFormFieldModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatInputModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatCardModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatDividerModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_8__["BrowserAnimationsModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                angular_in_memory_web_api__WEBPACK_IMPORTED_MODULE_5__["HttpClientInMemoryWebApiModule"].forRoot(_in_memory_data_service__WEBPACK_IMPORTED_MODULE_6__["InMemoryDataService"], { dataEncapsulation: false })
+                _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
@@ -224,7 +228,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbW11bml0eS9jb21tdW5pdHkuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "mat-grid-tile {\r\n  background: rgb(27, 94, 240);\r\n}\r\n\r\nmat-card{\r\n    width:25%;\r\n    float:left;\r\n    background: rgb(27, 162, 240);\r\n    height: 100px;\r\n}\r\n\r\nbutton{\r\n    text-align: center;\r\n    padding: 30px;\r\n    font-size: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tbXVuaXR5L2NvbW11bml0eS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBO0lBQ0ksU0FBUztJQUNULFVBQVU7SUFDViw2QkFBNkI7SUFDN0IsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGtCQUFrQjtJQUNsQixhQUFhO0lBQ2IsZUFBZTtBQUNuQiIsImZpbGUiOiJzcmMvYXBwL2NvbW11bml0eS9jb21tdW5pdHkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1ncmlkLXRpbGUge1xyXG4gIGJhY2tncm91bmQ6IHJnYigyNywgOTQsIDI0MCk7XHJcbn1cclxuXHJcbm1hdC1jYXJke1xyXG4gICAgd2lkdGg6MjUlO1xyXG4gICAgZmxvYXQ6bGVmdDtcclxuICAgIGJhY2tncm91bmQ6IHJnYigyNywgMTYyLCAyNDApO1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxufVxyXG5idXR0b257XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBwYWRkaW5nOiAzMHB4O1xyXG4gICAgZm9udC1zaXplOiA0MHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -235,7 +239,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <span>这里是板块目录</span>\n</div>"
+module.exports = "<div>\n  <!--\n  <mat-grid-list cols='3' rowHeight=\"2:1\">\n    <mat-grid-tile>板块1</mat-grid-tile>\n    <mat-grid-tile>板块2</mat-grid-tile>\n    <mat-grid-tile>板块3</mat-grid-tile>\n    <mat-grid-tile>板块4</mat-grid-tile>\n    <mat-grid-tile>板块5</mat-grid-tile>\n    <mat-grid-tile>板块6</mat-grid-tile>\n  </mat-grid-list>\n  -->\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">风土人情</button></mat-card>\n  <mat-divider [vertical]=\"true\" [inset]=\"true\"></mat-divider>\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">网络游戏</button></mat-card>\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">编程交流</button></mat-card>\n</div>"
 
 /***/ }),
 
@@ -355,7 +359,7 @@ var HttpService = /** @class */ (function () {
     function HttpService(http) {
         this.http = http;
         this.communityUrl = '';
-        this.userUrl = '';
+        this.userUrl = '/posts';
     }
     HttpService.prototype.sendLogin = function (user) {
         return this.http.post(this.userUrl, user, httpOptions);
@@ -393,9 +397,16 @@ __webpack_require__.r(__webpack_exports__);
 var InMemoryDataService = /** @class */ (function () {
     function InMemoryDataService() {
     }
+    //date1:Date;
     InMemoryDataService.prototype.createDb = function () {
+        /*
+        this.date1=new Date();
+        this.date1.setDate(19);
+        this.date1.setFullYear(2019);
+        this.date1.setMonth(3);
+        */
         var posts = [
-            { id: 1, title: '特大消息特大消息！！！', author: 'gty', initTime: '2019-03-19', content: "最近A市发生特大地震" },
+            { id: 1, title: '特大消息，特大消息！！！', author: 'gty', initTime: '2019-03-19', content: "最近A市发生特大地震" },
             { id: 2, title: '第二个帖子', author: 'yym', initTime: '2019-03-20', content: "我是正文" },
             { id: 3, author: 'yym', initTime: '2019-04-11', content: "那我们要当心哦", parentId: 1 },
             { id: 4, author: '犹豫，就会败北', initTime: '2019-04-12', content: "什么？我就在A市我怎么不知道", parentId: 1 }
@@ -465,7 +476,7 @@ var LoginComponent = /** @class */ (function () {
         if (!username) {
             return;
         }
-        this.myhttp.sendLogin({ username: username, password: password }).subscribe();
+        this.myhttp.sendLogin({ username: username, password: password }).subscribe(function () { return console.log("我发了哦"); });
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -489,7 +500,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "table{\r\n    border-color: gray;\r\n    border-collapse: separate;\r\n    border-spacing: 2px;\r\n}\r\n\r\ntr{\r\n    height:200px;\r\n    display: table-row;\r\n    vertical-align: inherit;\r\n    border-color: inherit;\r\n}\r\n\r\ntd{\r\n    vertical-align:top;\r\n    line-height: 1.83em;\r\n    word-wrap: break-word;\r\n    word-break: break-all;\r\n}\r\n\r\n.left{\r\n    /*width: 180px;*/\r\n    width: 25%;\r\n    background-color: rgb(97, 252, 252);\r\n}\r\n\r\n.right{\r\n    padding-top:1px;\r\n    /*width:500px*/\r\n    width:75%;\r\n    background-color: rgb(172, 255, 255);\r\n}\r\n\r\n.title{\r\n    font-size:30px;\r\n}\r\n\r\n.time{\r\n    font-size: 15px;\r\n    float: right;\r\n}\r\n\r\ntbody{\r\n    display:table-row-group;\r\n    vertical-align: center;\r\n}\r\n\r\nh3{\r\n    margin-top: 0%;\r\n}\r\n\r\n.responseTitle{\r\n    padding-left: 130px;\r\n    font-size: 20px;\r\n\r\n}\r\n\r\ntextarea\r\n{\r\n    font-family: Verdana, Tahoma, Arial, \"Microsoft YaHei\", \"Hiragino Sans GB\", \"WenQuanYi Micro Hei\", sans-serif;\r\n    width: 98%;\r\n    height: 25em;\r\n    line-height: 1.583em;\r\n    background-color: rgb(221, 241, 247);\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcG9zdC1kZXRhaWwvcG9zdC1kZXRhaWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtJQUNsQix5QkFBeUI7SUFDekIsbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLGtCQUFrQjtJQUNsQix1QkFBdUI7SUFDdkIscUJBQXFCO0FBQ3pCOztBQUNBO0lBQ0ksa0JBQWtCO0lBQ2xCLG1CQUFtQjtJQUNuQixxQkFBcUI7SUFDckIscUJBQXFCO0FBQ3pCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLFVBQVU7SUFDVixtQ0FBbUM7QUFDdkM7O0FBQ0E7SUFDSSxlQUFlO0lBQ2YsY0FBYztJQUNkLFNBQVM7SUFDVCxvQ0FBb0M7QUFDeEM7O0FBQ0E7SUFDSSxjQUFjO0FBQ2xCOztBQUNBO0lBQ0ksZUFBZTtJQUNmLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSx1QkFBdUI7SUFDdkIsc0JBQXNCO0FBQzFCOztBQUNBO0lBQ0ksY0FBYztBQUNsQjs7QUFDQTtJQUNJLG1CQUFtQjtJQUNuQixlQUFlOztBQUVuQjs7QUFDQTs7SUFFSSw2R0FBNkc7SUFDN0csVUFBVTtJQUNWLFlBQVk7SUFDWixvQkFBb0I7SUFDcEIsb0NBQW9DO0FBQ3hDIiwiZmlsZSI6InNyYy9hcHAvcG9zdC1kZXRhaWwvcG9zdC1kZXRhaWwuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbInRhYmxle1xyXG4gICAgYm9yZGVyLWNvbG9yOiBncmF5O1xyXG4gICAgYm9yZGVyLWNvbGxhcHNlOiBzZXBhcmF0ZTtcclxuICAgIGJvcmRlci1zcGFjaW5nOiAycHg7XHJcbn1cclxuXHJcbnRye1xyXG4gICAgaGVpZ2h0OjIwMHB4O1xyXG4gICAgZGlzcGxheTogdGFibGUtcm93O1xyXG4gICAgdmVydGljYWwtYWxpZ246IGluaGVyaXQ7XHJcbiAgICBib3JkZXItY29sb3I6IGluaGVyaXQ7XHJcbn1cclxudGR7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjp0b3A7XHJcbiAgICBsaW5lLWhlaWdodDogMS44M2VtO1xyXG4gICAgd29yZC13cmFwOiBicmVhay13b3JkO1xyXG4gICAgd29yZC1icmVhazogYnJlYWstYWxsO1xyXG59XHJcblxyXG4ubGVmdHtcclxuICAgIC8qd2lkdGg6IDE4MHB4OyovXHJcbiAgICB3aWR0aDogMjUlO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDk3LCAyNTIsIDI1Mik7XHJcbn1cclxuLnJpZ2h0e1xyXG4gICAgcGFkZGluZy10b3A6MXB4O1xyXG4gICAgLyp3aWR0aDo1MDBweCovXHJcbiAgICB3aWR0aDo3NSU7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMTcyLCAyNTUsIDI1NSk7XHJcbn1cclxuLnRpdGxle1xyXG4gICAgZm9udC1zaXplOjMwcHg7XHJcbn1cclxuLnRpbWV7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbn1cclxuXHJcbnRib2R5e1xyXG4gICAgZGlzcGxheTp0YWJsZS1yb3ctZ3JvdXA7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogY2VudGVyO1xyXG59XHJcbmgze1xyXG4gICAgbWFyZ2luLXRvcDogMCU7XHJcbn1cclxuLnJlc3BvbnNlVGl0bGV7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDEzMHB4O1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG5cclxufVxyXG50ZXh0YXJlYVxyXG57XHJcbiAgICBmb250LWZhbWlseTogVmVyZGFuYSwgVGFob21hLCBBcmlhbCwgXCJNaWNyb3NvZnQgWWFIZWlcIiwgXCJIaXJhZ2lubyBTYW5zIEdCXCIsIFwiV2VuUXVhbllpIE1pY3JvIEhlaVwiLCBzYW5zLXNlcmlmO1xyXG4gICAgd2lkdGg6IDk4JTtcclxuICAgIGhlaWdodDogMjVlbTtcclxuICAgIGxpbmUtaGVpZ2h0OiAxLjU4M2VtO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDIyMSwgMjQxLCAyNDcpO1xyXG59Il19 */"
+module.exports = "table{\r\n    border-color: gray;\r\n    border-collapse: separate;\r\n    border-spacing: 2px;\r\n}\r\n\r\ntr{\r\n    height:200px;\r\n    display: table-row;\r\n    vertical-align: inherit;\r\n    border-color: inherit;\r\n}\r\n\r\ntd{\r\n    vertical-align:top;\r\n    line-height: 1.83em;\r\n    word-wrap: break-word;\r\n    word-break: break-all;\r\n}\r\n\r\n.left{\r\n    /*width: 180px;*/\r\n    width: 25%;\r\n    background-color: rgb(97, 159, 252);\r\n}\r\n\r\n.right{\r\n    padding-top:1px;\r\n    /*width:500px*/\r\n    width:75%;\r\n    background-color: rgb(172, 201, 255);\r\n}\r\n\r\n.title{\r\n    font-size:30px;\r\n}\r\n\r\n.time{\r\n    font-size: 15px;\r\n    float: right;\r\n}\r\n\r\ntbody{\r\n    display:table-row-group;\r\n    vertical-align: center;\r\n}\r\n\r\nh3{\r\n    margin-top: 0%;\r\n}\r\n\r\n.responseTitle{\r\n    font-size: 20px;\r\n    padding-left: 5px;\r\n}\r\n\r\ntextarea\r\n{\r\n    font-family: Verdana, Tahoma, Arial, \"Microsoft YaHei\", \"Hiragino Sans GB\", \"WenQuanYi Micro Hei\", sans-serif;\r\n    width: 98%;\r\n    height: 25em;\r\n    line-height: 1.583em;\r\n    background-color: rgb(221, 241, 247);\r\n}\r\n\r\n.mat-card{\r\n    width:50%;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcG9zdC1kZXRhaWwvcG9zdC1kZXRhaWwuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGtCQUFrQjtJQUNsQix5QkFBeUI7SUFDekIsbUJBQW1CO0FBQ3ZCOztBQUVBO0lBQ0ksWUFBWTtJQUNaLGtCQUFrQjtJQUNsQix1QkFBdUI7SUFDdkIscUJBQXFCO0FBQ3pCOztBQUNBO0lBQ0ksa0JBQWtCO0lBQ2xCLG1CQUFtQjtJQUNuQixxQkFBcUI7SUFDckIscUJBQXFCO0FBQ3pCOztBQUVBO0lBQ0ksZ0JBQWdCO0lBQ2hCLFVBQVU7SUFDVixtQ0FBbUM7QUFDdkM7O0FBQ0E7SUFDSSxlQUFlO0lBQ2YsY0FBYztJQUNkLFNBQVM7SUFDVCxvQ0FBb0M7QUFDeEM7O0FBQ0E7SUFDSSxjQUFjO0FBQ2xCOztBQUNBO0lBQ0ksZUFBZTtJQUNmLFlBQVk7QUFDaEI7O0FBRUE7SUFDSSx1QkFBdUI7SUFDdkIsc0JBQXNCO0FBQzFCOztBQUNBO0lBQ0ksY0FBYztBQUNsQjs7QUFDQTtJQUNJLGVBQWU7SUFDZixpQkFBaUI7QUFDckI7O0FBQ0E7O0lBRUksNkdBQTZHO0lBQzdHLFVBQVU7SUFDVixZQUFZO0lBQ1osb0JBQW9CO0lBQ3BCLG9DQUFvQztBQUN4Qzs7QUFDQTtJQUNJLFNBQVM7QUFDYiIsImZpbGUiOiJzcmMvYXBwL3Bvc3QtZGV0YWlsL3Bvc3QtZGV0YWlsLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJ0YWJsZXtcclxuICAgIGJvcmRlci1jb2xvcjogZ3JheTtcclxuICAgIGJvcmRlci1jb2xsYXBzZTogc2VwYXJhdGU7XHJcbiAgICBib3JkZXItc3BhY2luZzogMnB4O1xyXG59XHJcblxyXG50cntcclxuICAgIGhlaWdodDoyMDBweDtcclxuICAgIGRpc3BsYXk6IHRhYmxlLXJvdztcclxuICAgIHZlcnRpY2FsLWFsaWduOiBpbmhlcml0O1xyXG4gICAgYm9yZGVyLWNvbG9yOiBpbmhlcml0O1xyXG59XHJcbnRke1xyXG4gICAgdmVydGljYWwtYWxpZ246dG9wO1xyXG4gICAgbGluZS1oZWlnaHQ6IDEuODNlbTtcclxuICAgIHdvcmQtd3JhcDogYnJlYWstd29yZDtcclxuICAgIHdvcmQtYnJlYWs6IGJyZWFrLWFsbDtcclxufVxyXG5cclxuLmxlZnR7XHJcbiAgICAvKndpZHRoOiAxODBweDsqL1xyXG4gICAgd2lkdGg6IDI1JTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYig5NywgMTU5LCAyNTIpO1xyXG59XHJcbi5yaWdodHtcclxuICAgIHBhZGRpbmctdG9wOjFweDtcclxuICAgIC8qd2lkdGg6NTAwcHgqL1xyXG4gICAgd2lkdGg6NzUlO1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDE3MiwgMjAxLCAyNTUpO1xyXG59XHJcbi50aXRsZXtcclxuICAgIGZvbnQtc2l6ZTozMHB4O1xyXG59XHJcbi50aW1le1xyXG4gICAgZm9udC1zaXplOiAxNXB4O1xyXG4gICAgZmxvYXQ6IHJpZ2h0O1xyXG59XHJcblxyXG50Ym9keXtcclxuICAgIGRpc3BsYXk6dGFibGUtcm93LWdyb3VwO1xyXG4gICAgdmVydGljYWwtYWxpZ246IGNlbnRlcjtcclxufVxyXG5oM3tcclxuICAgIG1hcmdpbi10b3A6IDAlO1xyXG59XHJcbi5yZXNwb25zZVRpdGxle1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiA1cHg7XHJcbn1cclxudGV4dGFyZWFcclxue1xyXG4gICAgZm9udC1mYW1pbHk6IFZlcmRhbmEsIFRhaG9tYSwgQXJpYWwsIFwiTWljcm9zb2Z0IFlhSGVpXCIsIFwiSGlyYWdpbm8gU2FucyBHQlwiLCBcIldlblF1YW5ZaSBNaWNybyBIZWlcIiwgc2Fucy1zZXJpZjtcclxuICAgIHdpZHRoOiA5OCU7XHJcbiAgICBoZWlnaHQ6IDI1ZW07XHJcbiAgICBsaW5lLWhlaWdodDogMS41ODNlbTtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyMjEsIDI0MSwgMjQ3KTtcclxufVxyXG4ubWF0LWNhcmR7XHJcbiAgICB3aWR0aDo1MCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -500,7 +511,7 @@ module.exports = "table{\r\n    border-color: gray;\r\n    border-collapse: sepa
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<b class=\"title\">{{post.title}}</b>\r\n<button mat-raised-button color=\"primary\" (click)=\"goBack()\" style=\"float:right\">返回</button>\r\n<button mat-raised-button color=\"primary\" (click)=\"expression\" style=\"float:right\">发表回复</button>\r\n<table style=\"width:100%\">\r\n  <tbody>\r\n    <div>\r\n      <tr>\r\n        <td style=\"vertical-align:top\" class=\"left\">\r\n          <span>\r\n            <div>\r\n              <span>楼主:</span>\r\n            </div>\r\n            <div style=\"text-align:center\">\r\n              <span>{{post.author}}</span>\r\n            </div>\r\n          </span>\r\n        </td>\r\n        <mat-divider [vertical]=\"true\">\r\n        </mat-divider>\r\n        <td class=\"right\">\r\n          <div style=\"text-align:right\">\r\n            <span style=\"font-size:15px\">{{post.initTime}}</span>\r\n          </div>\r\n          <span>{{post.content}}</span>\r\n        </td>\r\n      </tr>\r\n      <mat-divider style=\"width:100%\"></mat-divider>\r\n    </div>\r\n    <div *ngFor=\"let posts of responsePosts\">\r\n      <tr>\r\n        <td style=\"vertical-align:top\" class=\"left\">\r\n          <span>\r\n            <div style=\"text-align:center\">\r\n              <span>{{posts.author}}</span>\r\n            </div>\r\n          </span>\r\n        </td>\r\n        <mat-divider [vertical]=\"true\">\r\n        </mat-divider>\r\n        <td class=\"right\">\r\n          <div style=\"text-align:right\">\r\n            <span style=\"font-size:15px\">{{posts.initTime}}</span>\r\n          </div>\r\n          <span>{{posts.content}}</span>\r\n        </td>\r\n      </tr>\r\n      <mat-divider></mat-divider>\r\n    </div>\r\n  </tbody>\r\n</table>\r\n<hr />\r\n<div>\r\n  <div style=\"padding-top:40px\">\r\n    <span class=\"responseTitle\">发表回复</span>\r\n  </div>\r\n  <textarea #content></textarea>\r\n  <button mat-raised-button color=\"primary\" (click)=\"commit(content.value,content.value)\"\r\n    style=\"float:right\">提交</button>\r\n</div>\r\n"
+module.exports = "<b class=\"title\">{{post.title}}</b>\r\n<button mat-raised-button color=\"primary\" (click)=\"goBack()\" style=\"float:right\">返回</button>\r\n<table style=\"width:100%\">\r\n  <tbody>\r\n    <div>\r\n      <tr>\r\n        <td style=\"vertical-align:top\" class=\"left\">\r\n          <span>\r\n            <div>\r\n              <span>楼主:</span>\r\n            </div>\r\n            <div style=\"text-align:center\">\r\n              <span>{{post.author}}</span>\r\n            </div>\r\n          </span>\r\n        </td>\r\n        <mat-divider [vertical]=\"true\">\r\n        </mat-divider>\r\n        <td class=\"right\">\r\n          <div style=\"text-align:right\">\r\n            <span style=\"font-size:15px\">{{post.initTime}}</span>\r\n          </div>\r\n          <span>{{post.content}}</span>\r\n        </td>\r\n      </tr>\r\n      <mat-divider style=\"width:100%\"></mat-divider>\r\n    </div>\r\n    <div *ngFor=\"let posts of responsePosts\">\r\n      <tr>\r\n        <td style=\"vertical-align:top\" class=\"left\">\r\n          <span>\r\n            <div style=\"text-align:center\">\r\n              <span>{{posts.author}}</span>\r\n            </div>\r\n          </span>\r\n        </td>\r\n        <mat-divider [vertical]=\"true\">\r\n        </mat-divider>\r\n        <td class=\"right\">\r\n          <div style=\"text-align:right\">\r\n            <span style=\"font-size:15px\">{{posts.initTime}}</span>\r\n          </div>\r\n          <span>{{posts.content}}</span>\r\n        </td>\r\n      </tr>\r\n      <mat-divider></mat-divider>\r\n    </div>\r\n  </tbody>\r\n</table>\r\n<hr />\r\n<div name=\"res\" id=\"res\">\r\n  <div style=\"padding-top:40px\">\r\n    <mat-card tabindex=\"0\" style=\"background:rgb(120, 196, 243)\" class=\"mat-card\">\r\n      <mat-card-content >\r\n        <img src=\"../../assets/icon/pen.png\" width=\"20\" height=\"20\"/>\r\n        <span class=\"responseTitle\">发表回复</span>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n  <textarea #content></textarea>\r\n  <div style=\"text-align:center\">  \r\n    <button mat-raised-button color=\"primary\" (click)=\"commit(content.value,content.value)\">提交</button>\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -691,12 +702,10 @@ var PostComponent = /** @class */ (function () {
         });*/
         //this.posts.filter(post =>post.parentId!=null);
     };
-    PostComponent.prototype.isParentPost = function (value, index, array) {
-        return (value.parentId == null);
-    };
     PostComponent.prototype.getPosted = function () {
         var _this = this;
         this.postService.getPosts().subscribe(function (posts) { return _this.posts = posts.filter(function (post) { return post.parentId == null; }); });
+        console.log();
     };
     PostComponent.prototype.pullPost = function (title, content, initTime) {
         var _this = this;
