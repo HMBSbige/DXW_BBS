@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/DXW_BBS.iml" filepath="$PROJECT_DIR$/.idea/modules/DXW_BBS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DXW_BBS_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DXW_BBS_main.iml" group="DXW_BBS" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DXW_BBS_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DXW_BBS_test.iml" group="DXW_BBS" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DXW_BBS.main.iml" filepath="$PROJECT_DIR$/.idea/modules/DXW_BBS.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DXW_BBS.test.iml" filepath="$PROJECT_DIR$/.idea/modules/DXW_BBS.test.iml" />
     </modules>
   </component>
 </project>
