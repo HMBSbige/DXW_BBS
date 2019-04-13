@@ -1,11 +1,16 @@
 package com.bbs.postapi.controller;
 
 import java.security.Principal;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+
+import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import reactor.core.publisher.Flux;
@@ -25,24 +30,29 @@ public class PostController {
         this.postRepository = postRepository;
     }
 
-    @GetMapping
-    public Flux<Post> getPosts() {
+    @GetMapping(value = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    // stream/text-event
+    // https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/
+    // https://medium.com/@nithinmallya4/processing-streaming-data-with-spring-webflux-ed0fc68a14de
+    public Flux<Post> getPosts(@RequestParam(value = "page", required = false) Optional<Integer> page) {
         // TODO: get posts with multithread and pagination
         // https://zupzup.org/kotlin-webflux-example/
         // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
-        return postRepository.findAll();
+        return postRepository
+            .findAllPagination(PageRequest.of(page.orElse(0), 10))
+            .filter(post -> post.getParentId() == null);
     }
 
-    @GetMapping("/parentId/{parentId}")
-    public Flux<Post> getPostByParentId(@PathVariable String parentId) {
-        return postRepository.findByParentId(parentId);
-    }
-
-    @GetMapping("{id}")
-    public Mono<ResponseEntity<Post>> getPost(@PathVariable String id) {
+    @GetMapping(value = "{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Mono<ResponseEntity<Flux<Post>>> getPost(@PathVariable String id,
+                                                    @RequestParam(value = "page", required = false) Optional<Integer> page) {
+        // get method parameters
+        // https://stackoverflow.com/questions/45924505/is-there-any-way-to-implement-pagination-in-spring-webflux-and-spring-data-react
         return postRepository.findById(id)
+            .map(post -> postRepository.findByParentId(id, PageRequest.of(page.orElse(0), 10)))
             .map(ResponseEntity::ok)
             .defaultIfEmpty(ResponseEntity.notFound().build());
+//            .delayElement(Duration.ofMillis(100));
     }
 
     @PostMapping
@@ -51,7 +61,8 @@ public class PostController {
         return principal
             .map(Principal::getName)
             .flatMap(username -> postRepository.save(
-                new Post(null, username, post_in_request.getContent(), post_in_request.getCommunity(), time, time))
+                new Post(null, username, post_in_request.getTitle(),
+                    post_in_request.getContent(), post_in_request.getCommunity(), time, time))
             )
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
@@ -63,9 +74,10 @@ public class PostController {
         return principal
             .map(Principal::getName)
             .flatMap(username -> postRepository.save(new Post(
-                null, username, post_in_request.getContent(),
-                parentId, post_in_request.getCommunity(), 0,
-                true, false, time, time))
+                null, username, post_in_request.getTitle(),
+                post_in_request.getContent(),
+                parentId, post_in_request.getCommunity(),
+                0, false, time, time))
             )
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
@@ -93,12 +105,15 @@ public class PostController {
     }
 
     @DeleteMapping("{id}")
-    public Mono<ResponseEntity<Void>> deletePost(@PathVariable(value = "id") String id, Mono<Principal> principal) {
+    public Mono<ResponseEntity<Post>> deletePost(@PathVariable(value = "id") String id, Mono<Principal> principal) {
         return principal
             .map(Principal::getName)
             .flatMap(username -> postRepository.findById(id)
                 .filter(existingPost -> username.equals(existingPost.getAuthor()))
-                .flatMap(existingPost -> postRepository.delete(existingPost))
+                .flatMap(existingPost -> {
+                    existingPost.setDeleted(true);
+                    return postRepository.save(existingPost);
+                })
                 .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
             )
             .map(ResponseEntity::ok)
@@ -107,8 +122,4 @@ public class PostController {
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
-    @DeleteMapping
-    public Mono<Void> deleteAllPosts() {
-        return postRepository.deleteAll();
-    }
 }

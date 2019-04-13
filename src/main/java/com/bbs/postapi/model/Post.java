@@ -17,6 +17,8 @@ public class Post {
 
     private String author;
 
+    private String Title;
+
     private String content;
 
     private String parentId;
@@ -25,24 +27,23 @@ public class Post {
 
     private int upvote;
 
-    private boolean visibility;
-
     private boolean deleted;
 
     private LocalDateTime initTime;
 
     private LocalDateTime lastUpdateTime;
 
-    public Post(String id, String author, String content, String community,
+    public Post(String id, String author, String Title,
+                String content, String community,
                 LocalDateTime initTime, LocalDateTime lastUpdateTime) {
         // new post
         this.id = id;
         this.author = author;
+        this.Title = Title;
         this.content = content;
         this.parentId = null;
         this.community = community;
         this.upvote = 0;
-        this.visibility = true;
         this.deleted = false;
         this.initTime = initTime;
         this.lastUpdateTime = lastUpdateTime;

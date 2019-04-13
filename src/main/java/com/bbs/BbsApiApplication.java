@@ -11,6 +11,7 @@ import com.bbs.postapi.model.repository.PostRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
+import reactor.core.publisher.Mono;
 import reactor.core.publisher.Flux;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,9 @@ public class BbsApiApplication {
         SpringApplication.run(BbsApiApplication.class, args);
     }
 
+    // We are using annotated way, if you like funcional way, see below
+    // https://stackoverflow.com/questions/44570730/how-to-view-response-from-spring-5-reactive-api-in-postman
+
     //Keep the rest of the code untouched. Just add the following method
     @Bean
     CommandLineRunner init(ReactiveMongoOperations operations, UserRepository userRepository, PostRepository postRepository, PBKDF2Encoder passwordEncoder) {
@@ -34,7 +38,47 @@ public class BbsApiApplication {
 
             postRepository
                     .deleteAll()
-                    .then().block();
+                    .thenMany(
+                        postRepository.save(
+                            new Post(
+                                null, "user", "first post",
+                                "first post", "", LocalDateTime.now(), LocalDateTime.now()
+                            ))
+                        .flatMap(post -> {
+                            LocalDateTime time = LocalDateTime.now();
+                            Flux<Post> postFlux = postRepository.saveAll(
+                                Flux
+                                    .just(
+                                        new Post(
+                                            null, "user", null,
+                                            "first comment",
+                                            post.getId(), "",
+                                            0, false, time, time
+                                        ),
+                                        new Post(
+                                            null, "user", null,
+                                            "second comment",
+                                            post.getId(), "",
+                                            0, false, time, time
+                                        ),
+                                        new Post(
+                                            null, "user", null,
+                                            "third comment",
+                                            post.getId(), "",
+                                            0, false, time, time
+                                        ),
+                                        new Post(
+                                            null, "user", "second post",
+                                            "second post", "", LocalDateTime.now(), LocalDateTime.now()
+                                        ))
+                            );
+                            postFlux
+                                .thenMany(postRepository.findAll())
+                                .subscribe(System.out::println);
+                            return Mono.just(post);
+                        })
+                    )
+                    .subscribe(System.out::println);
 
             Flux<User> productFlux = userRepository
                     .deleteAll()

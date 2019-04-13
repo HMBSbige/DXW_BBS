@@ -47,7 +47,6 @@ public class WebSecurityConfig {
                 .pathMatchers("/login").permitAll()
                 .pathMatchers("/posts").permitAll()
                 .pathMatchers("/posts/*").permitAll()
-                .pathMatchers("/posts/parentId/*").permitAll()
 //                .anyExchange().authenticated()
                 .and().build();
     }
