@@ -18,16 +18,8 @@ public class UserService implements IUserService{
     @Autowired
     UserRepository userRepository;
 
-    //username:passwowrd -> user:user
-    private final String userUsername = "user";// password: user
-    private final User user = new User(userUsername, "cBrlgyL2GI2GINuLUUwgojITuIufFycpLG4490dhGtY=", true, Arrays.asList(Role.ROLE_USER));
-
-    //username:passwowrd -> admin:admin
-    private final String adminUsername = "admin";// password: admin
-    private final User admin = new User(adminUsername, "dQNjUIMorJb8Ubj2+wVGYp6eAeYkdekqAcnYp+aRq5w=", true, Arrays.asList(Role.ROLE_ADMIN));
-
-    public void create(User e) {
-        userRepository.save(e).subscribe();
+    public Mono<User> create(User e) {
+        return userRepository.save(e);
     }
 
     public Mono<User> findByUsername(String username) {

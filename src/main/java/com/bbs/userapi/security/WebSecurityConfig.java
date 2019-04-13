@@ -24,30 +24,35 @@ public class WebSecurityConfig {
     @Bean
     public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
         return http
-                .exceptionHandling()
-                .authenticationEntryPoint((swe, e) -> {
-                    return Mono.fromRunnable(() -> {
-                        swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-                    });
-                }).accessDeniedHandler((swe, e) -> {
-                    return Mono.fromRunnable(() -> {
-                        swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-                    });
-                }).and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .authenticationManager(authenticationManager)
-                .securityContextRepository(securityContextRepository)
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers("/*").permitAll()
-                .pathMatchers("/assets/*").permitAll()
-                .pathMatchers("/signup").permitAll()
-                .pathMatchers("/login").permitAll()
-                .pathMatchers("/posts").permitAll()
-                .pathMatchers("/posts/*").permitAll()
+            .exceptionHandling()
+            .authenticationEntryPoint((swe, e) -> {
+                return Mono.fromRunnable(() -> {
+                    swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+                });
+            }).accessDeniedHandler((swe, e) -> {
+                return Mono.fromRunnable(() -> {
+                    swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                });
+            }).and()
+            .csrf().disable()
+            .formLogin().disable()
+            .httpBasic().disable()
+            .authenticationManager(authenticationManager)
+            .securityContextRepository(securityContextRepository)
+            .authorizeExchange()
+            .pathMatchers(HttpMethod.OPTIONS).permitAll()
+            .pathMatchers("/*").permitAll()
+            .pathMatchers("/assets/*").permitAll()
+            .pathMatchers("/signup").permitAll()
+            .pathMatchers("/login").permitAll()
+            .pathMatchers("/users").permitAll()
+            .pathMatchers("/users/*").permitAll()
+            .pathMatchers("/posts").permitAll()
+            .pathMatchers("/posts/*").permitAll()
+            .pathMatchers("/posts/top/*").permitAll()
+            .pathMatchers("/communities").permitAll()
+            .pathMatchers("/communities/*").permitAll()
 //                .anyExchange().authenticated()
-                .and().build();
+            .and().build();
     }
 }

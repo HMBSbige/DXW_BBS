@@ -27,6 +27,9 @@ public class User implements UserDetails {
     private String password;
 
     @Getter @Setter
+    private String signature;
+
+    @Getter @Setter
     private Boolean enabled;
 
     @Getter @Setter

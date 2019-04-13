@@ -5,14 +5,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.access.prepost.PreAuthorize;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -24,18 +22,14 @@ import com.bbs.postapi.exception.UserIdNotMatchException;
 @RequestMapping("/posts")
 public class PostController {
 
+    @Autowired
     private PostRepository postRepository;
-
-    public PostController(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
 
     @GetMapping(value = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     // stream/text-event
     // https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/
     // https://medium.com/@nithinmallya4/processing-streaming-data-with-spring-webflux-ed0fc68a14de
     public Flux<Post> getPosts(@RequestParam(value = "page", required = false) Optional<Integer> page) {
-        // TODO: get posts with multithread and pagination
         // https://zupzup.org/kotlin-webflux-example/
         // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
         return postRepository
@@ -69,7 +63,8 @@ public class PostController {
     }
 
     @PostMapping("{id}")
-    public Mono<ResponseEntity<Post>> saveComment(@PathVariable(value = "id") String parentId, @RequestBody Post post_in_request, Mono<Principal> principal) {
+    public Mono<ResponseEntity<Post>> saveComment(@PathVariable(value = "id") String parentId,
+                                                  @RequestBody Post post_in_request, Mono<Principal> principal) {
         LocalDateTime time = LocalDateTime.now();
         return principal
             .map(Principal::getName)
@@ -77,30 +72,31 @@ public class PostController {
                 null, username, post_in_request.getTitle(),
                 post_in_request.getContent(),
                 parentId, post_in_request.getCommunity(),
-                0, false, time, time))
+                false, false, time, time))
             )
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @PutMapping("{id}")
-    public Mono<ResponseEntity<Post>> updatePost(@PathVariable(value = "id") String id, @RequestBody Post post, Mono<Principal> principal) {
+    public Mono<ResponseEntity<Post>> updatePost(@PathVariable(value = "id") String id,
+                                                 @RequestBody Post post, Mono<Principal> principal) {
         return principal
             .map(Principal::getName)
             .flatMap(username -> postRepository.findById(id)
-                .filter(existingPost -> username.equals(existingPost.getAuthor()))
-                .flatMap(existingPost -> {
+                    .filter(existingPost -> username.equals(existingPost.getAuthor()))
+                    .flatMap(existingPost -> {
 //                    System.out.println(username);
 //                    System.out.println(existingPost.getAuthor());
-                    existingPost.setContent(post.getContent());
-                    existingPost.setLastUpdateTime(post.getLastUpdateTime());
-                    return postRepository.save(existingPost);
-                })
-                .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
+                        existingPost.setContent(post.getContent());
+                        existingPost.setLastUpdateTime(post.getLastUpdateTime());
+                        return postRepository.save(existingPost);
+                    })
+                    .switchIfEmpty(Mono.error(new UserIdNotMatchException("UserIdNotMatchException")))
             )
             .map(ResponseEntity::ok)
             // https://stackoverflow.com/questions/44273112/onerrorresume-not-working-as-expected
-            .onErrorResume(UserIdNotMatchException.class, e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .onErrorResume(UserIdNotMatchException.class, e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
@@ -118,7 +114,7 @@ public class PostController {
             )
             .map(ResponseEntity::ok)
             .onErrorResume(UserIdNotMatchException.class,
-                e->Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 

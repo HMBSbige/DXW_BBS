@@ -25,7 +25,7 @@ public class Post {
 
     private String community;
 
-    private int upvote;
+    private boolean top;
 
     private boolean deleted;
 
@@ -43,7 +43,7 @@ public class Post {
         this.content = content;
         this.parentId = null;
         this.community = community;
-        this.upvote = 0;
+        this.top = false;
         this.deleted = false;
         this.initTime = initTime;
         this.lastUpdateTime = lastUpdateTime;
