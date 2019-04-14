@@ -11,10 +11,10 @@ public interface PostRepository extends ReactiveMongoRepository<Post, String>{
     @Query("{ 'parentId': ?0 }")
     Flux<Post> findByParentId(final String parentId, final Pageable page);
 
-    @Query("{ 'parentId': null, 'top': false } }")
-    Flux<Post> findAllPagination(final Pageable page);
+    @Query("{ 'parentId': null, 'top': false, 'deleted': false, 'community': ?0 }")
+    Flux<Post> findAllPagination(String community, final Pageable page);
 
-    @Query("{ 'parentId': null, 'top': true }")
-    Flux<Post> findTopAllPagination(final Pageable page);
+    @Query("{ 'parentId': null, 'top': true, 'deleted': false, 'community': ?0 }")
+    Flux<Post> findTopAllPagination(String community, final Pageable page);
 
 }

@@ -49,6 +49,10 @@ public class Post {
         this.lastUpdateTime = lastUpdateTime;
     }
 
+    public boolean getDeleted(){
+        return this.deleted;
+    }
+
 //    @Override
 //    public int hashCode() {
 //        return Objects.hash(id, name, genre, releaseDate);

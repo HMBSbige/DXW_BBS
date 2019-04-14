@@ -33,16 +33,16 @@ public class PostTopController {
     // stream/text-event
     // https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/
     // https://medium.com/@nithinmallya4/processing-streaming-data-with-spring-webflux-ed0fc68a14de
-    public Flux<Post> getTopPosts(@RequestParam(value = "page", required = false) Optional<Integer> page) {
+    public Flux<Post> getTopPosts(@RequestParam(value = "community") String community,
+                                  @RequestParam(value = "page", required = false) Optional<Integer> page) {
         // https://zupzup.org/kotlin-webflux-example/
         // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
         return postRepository
-            .findTopAllPagination(PageRequest.of(page.orElse(0), 10))
-            .filter(post -> post.getParentId() == null);
+            .findTopAllPagination(community, PageRequest.of(page.orElse(0), 10));
     }
 
     @PostMapping("{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> setTopPost(@PathVariable(value = "id") String id,
                                                  @RequestBody Post post, Mono<Principal> principal) {
         return principal
@@ -75,7 +75,7 @@ public class PostTopController {
 
 
     @DeleteMapping("/top/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> unsetTopPost(@PathVariable(value = "id") String id,
                                                    @RequestBody Post post, Mono<Principal> principal) {
         return principal
