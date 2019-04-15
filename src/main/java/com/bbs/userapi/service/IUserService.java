@@ -6,7 +6,7 @@ import com.bbs.userapi.model.User;
 
 public interface IUserService {
 
-    void create(User e);
+    Mono<User> create(User e);
 
     Mono<User> findById(String id);
 
