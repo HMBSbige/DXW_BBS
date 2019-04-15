@@ -56,12 +56,12 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', redirectTo: '/homepage', pathMatch: "full" },
     { path: 'homepage', component: _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_6__["HomepageComponent"] },
+    { path: 'community', component: _community_community_component__WEBPACK_IMPORTED_MODULE_9__["CommunityComponent"] },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
-    { path: 'post', component: _post_post_component__WEBPACK_IMPORTED_MODULE_5__["PostComponent"] },
-    { path: 'detail/:id', component: _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_4__["PostDetailComponent"] },
-    { path: 'post/pull', component: _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_7__["PullPostComponent"] },
     { path: 'register', component: _register_register_component__WEBPACK_IMPORTED_MODULE_8__["RegisterComponent"] },
-    { path: 'community', component: _community_community_component__WEBPACK_IMPORTED_MODULE_9__["CommunityComponent"] }
+    { path: 'community/:community', component: _post_post_component__WEBPACK_IMPORTED_MODULE_5__["PostComponent"] },
+    { path: 'community/:community/pullpost', component: _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_7__["PullPostComponent"] },
+    { path: 'community/:community/post/:id', component: _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_4__["PostDetailComponent"] },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -97,7 +97,7 @@ module.exports = "ul\r\n{\r\n  list-style-type: none;\r\n  margin: 10;\r\n  padd
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!DOCTYPE html>\n<html style=\"background:rgb(224, 254, 255)\">\n  <head>\n\n  </head>\n  <body>\n    <div>\n        <ul>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/homepage\">开花论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/post\">论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/community\">板块</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/register\">注册</button></li>\n          <li style=\"float:right\"><button mat-raised-button color=\"primary\" routerLink=\"/login\">登录</button></li>\n        </ul>\n    </div>\n    <hr />\n\n    <router-outlet></router-outlet>\n  </body>\n</html>"
+module.exports = "<!DOCTYPE html>\n<html style=\"background:rgb(224, 254, 255)\">\n  <head>\n\n  </head>\n  <body>\n    <div>\n        <ul>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/homepage\">开花论坛</button></li>\n          <li><button mat-raised-button color=\"primary\" routerLink=\"/community\">板块</button></li>\n          <li style=\"float:right\" *ngIf=\"!islogin\">\n            <button mat-raised-button color=\"primary\" routerLink=\"/register\">注册</button>\n          </li>\n          <li style=\"float:right\" *ngIf=\"!islogin\">\n            <button mat-raised-button color=\"primary\" routerLink=\"/login\">登录</button>\n          </li>\n        </ul>\n    </div>\n    <hr />\n\n    <router-outlet></router-outlet>\n  </body>\n</html>"
 
 /***/ }),
 
@@ -117,6 +117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
+        this.islogin = false;
         this.title = 'BBS';
     }
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -137,11 +138,12 @@ var AppComponent = /** @class */ (function () {
 /*!*******************************!*\
   !*** ./src/app/app.module.ts ***!
   \*******************************/
-/*! exports provided: AppModule */
+/*! exports provided: tokenGetter, AppModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tokenGetter", function() { return tokenGetter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
@@ -152,15 +154,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _in_memory_data_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./in-memory-data.service */ "./src/app/in-memory-data.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./post-detail/post-detail.component */ "./src/app/post-detail/post-detail.component.ts");
-/* harmony import */ var _post_post_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./post/post.component */ "./src/app/post/post.component.ts");
-/* harmony import */ var _community_community_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./community/community.component */ "./src/app/community/community.component.ts");
-/* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./homepage/homepage.component */ "./src/app/homepage/homepage.component.ts");
-/* harmony import */ var _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./pull-post/pull-post.component */ "./src/app/pull-post/pull-post.component.ts");
-/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./post-detail/post-detail.component */ "./src/app/post-detail/post-detail.component.ts");
+/* harmony import */ var _post_post_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./post/post.component */ "./src/app/post/post.component.ts");
+/* harmony import */ var _community_community_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./community/community.component */ "./src/app/community/community.component.ts");
+/* harmony import */ var _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./homepage/homepage.component */ "./src/app/homepage/homepage.component.ts");
+/* harmony import */ var _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./pull-post/pull-post.component */ "./src/app/pull-post/pull-post.component.ts");
+/* harmony import */ var _register_register_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./register/register.component */ "./src/app/register/register.component.ts");
 
 
 
@@ -180,24 +183,35 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+function tokenGetter() {
+    return localStorage.getItem('access_token');
+}
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_11__["LoginComponent"],
-                _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_12__["PostDetailComponent"],
-                _post_post_component__WEBPACK_IMPORTED_MODULE_13__["PostComponent"],
-                _community_community_component__WEBPACK_IMPORTED_MODULE_14__["CommunityComponent"],
-                _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_15__["HomepageComponent"],
-                _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_16__["PullPostComponent"],
-                _register_register_component__WEBPACK_IMPORTED_MODULE_17__["RegisterComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_12__["LoginComponent"],
+                _post_detail_post_detail_component__WEBPACK_IMPORTED_MODULE_13__["PostDetailComponent"],
+                _post_post_component__WEBPACK_IMPORTED_MODULE_14__["PostComponent"],
+                _community_community_component__WEBPACK_IMPORTED_MODULE_15__["CommunityComponent"],
+                _homepage_homepage_component__WEBPACK_IMPORTED_MODULE_16__["HomepageComponent"],
+                _pull_post_pull_post_component__WEBPACK_IMPORTED_MODULE_17__["PullPostComponent"],
+                _register_register_component__WEBPACK_IMPORTED_MODULE_18__["RegisterComponent"]
             ],
             imports: [
+                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_9__["JwtModule"].forRoot({
+                    config: {
+                        tokenGetter: tokenGetter,
+                        whitelistedDomains: ['localhost:4000'],
+                        blacklistedRoutes: ['localhost:4000/api/auth']
+                    }
+                }),
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_10__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_8__["BrowserAnimationsModule"],
@@ -211,7 +225,7 @@ var AppModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatGridListModule"]
             ],
             providers: [],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -228,7 +242,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "mat-grid-tile {\r\n  background: rgb(27, 94, 240);\r\n}\r\n\r\nmat-card{\r\n    width:25%;\r\n    float:left;\r\n    background: rgb(27, 162, 240);\r\n    height: 100px;\r\n}\r\n\r\nbutton{\r\n    text-align: center;\r\n    padding: 30px;\r\n    font-size: 40px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tbXVuaXR5L2NvbW11bml0eS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsNEJBQTRCO0FBQzlCOztBQUVBO0lBQ0ksU0FBUztJQUNULFVBQVU7SUFDViw2QkFBNkI7SUFDN0IsYUFBYTtBQUNqQjs7QUFDQTtJQUNJLGtCQUFrQjtJQUNsQixhQUFhO0lBQ2IsZUFBZTtBQUNuQiIsImZpbGUiOiJzcmMvYXBwL2NvbW11bml0eS9jb21tdW5pdHkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1ncmlkLXRpbGUge1xyXG4gIGJhY2tncm91bmQ6IHJnYigyNywgOTQsIDI0MCk7XHJcbn1cclxuXHJcbm1hdC1jYXJke1xyXG4gICAgd2lkdGg6MjUlO1xyXG4gICAgZmxvYXQ6bGVmdDtcclxuICAgIGJhY2tncm91bmQ6IHJnYigyNywgMTYyLCAyNDApO1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxufVxyXG5idXR0b257XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBwYWRkaW5nOiAzMHB4O1xyXG4gICAgZm9udC1zaXplOiA0MHB4O1xyXG59Il19 */"
+module.exports = "mat-grid-tile {\r\n  background: rgb(132, 168, 245);\r\n}\r\n/*\r\nmat-card{\r\n    width:25%;\r\n    float:left;\r\n    background: rgb(27, 162, 240);\r\n    height: 100px;\r\n}*/\r\nbutton{\r\n    text-align: center;\r\n    padding: 30px;\r\n    font-size: 40px;\r\n}\r\nul\r\n{\r\n    list-style-type: none;\r\n}\r\n.top{\r\n    text-align: center;\r\n}\r\n.grid{\r\n    width: 100px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tbXVuaXR5L2NvbW11bml0eS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsOEJBQThCO0FBQ2hDO0FBQ0E7Ozs7OztFQU1FO0FBQ0Y7SUFDSSxrQkFBa0I7SUFDbEIsYUFBYTtJQUNiLGVBQWU7QUFDbkI7QUFDQTs7SUFFSSxxQkFBcUI7QUFDekI7QUFDQTtJQUNJLGtCQUFrQjtBQUN0QjtBQUNBO0lBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL2NvbW11bml0eS9jb21tdW5pdHkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIm1hdC1ncmlkLXRpbGUge1xyXG4gIGJhY2tncm91bmQ6IHJnYigxMzIsIDE2OCwgMjQ1KTtcclxufVxyXG4vKlxyXG5tYXQtY2FyZHtcclxuICAgIHdpZHRoOjI1JTtcclxuICAgIGZsb2F0OmxlZnQ7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2IoMjcsIDE2MiwgMjQwKTtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbn0qL1xyXG5idXR0b257XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBwYWRkaW5nOiAzMHB4O1xyXG4gICAgZm9udC1zaXplOiA0MHB4O1xyXG59XHJcbnVsXHJcbntcclxuICAgIGxpc3Qtc3R5bGUtdHlwZTogbm9uZTtcclxufVxyXG4udG9we1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5ncmlke1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -239,7 +253,7 @@ module.exports = "mat-grid-tile {\r\n  background: rgb(27, 94, 240);\r\n}\r\n\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <!--\n  <mat-grid-list cols='3' rowHeight=\"2:1\">\n    <mat-grid-tile>板块1</mat-grid-tile>\n    <mat-grid-tile>板块2</mat-grid-tile>\n    <mat-grid-tile>板块3</mat-grid-tile>\n    <mat-grid-tile>板块4</mat-grid-tile>\n    <mat-grid-tile>板块5</mat-grid-tile>\n    <mat-grid-tile>板块6</mat-grid-tile>\n  </mat-grid-list>\n  -->\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">风土人情</button></mat-card>\n  <mat-divider [vertical]=\"true\" [inset]=\"true\"></mat-divider>\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">网络游戏</button></mat-card>\n  <mat-card tabindex=\"0\"><button mat-button routerLink=\"/post\">编程交流</button></mat-card>\n</div>"
+module.exports = "<div>\n  <p>板块一览</p>\n</div>\n<div class=\"top\">\n  <mat-grid-list cols='3' rowHeight=\"2:1\" role=\"list\">\n    <div class=\"grid\" role=\"listitem\">\n      <mat-grid-tile *ngFor=\"let community of communities\" routerLink=\"/community/{{community.id}}\">\n        {{community.name}}\n      </mat-grid-tile>\n    </div>\n  </mat-grid-list>\n  <!--\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>板块名称</span>\n          <span style=\"float:right\">开贴时间</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let community of communities\">\n      <mat-card tabindex=\"0\" routerLink=\"/community/{{community.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{community.name}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n  </ul>\n    -->\n</div>\n"
 
 /***/ }),
 
@@ -255,12 +269,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityComponent", function() { return CommunityComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../http.service */ "./src/app/http.service.ts");
+
 
 
 var CommunityComponent = /** @class */ (function () {
-    function CommunityComponent() {
+    function CommunityComponent(httpService) {
+        this.httpService = httpService;
     }
     CommunityComponent.prototype.ngOnInit = function () {
+        this.getCommunities();
+    };
+    CommunityComponent.prototype.getCommunities = function () {
+        var _this = this;
+        this.httpService.getCommunities().subscribe(function (communities) { return _this.communities = communities; });
     };
     CommunityComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -268,7 +290,7 @@ var CommunityComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./community.component.html */ "./src/app/community/community.component.html"),
             styles: [__webpack_require__(/*! ./community.component.css */ "./src/app/community/community.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_http_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"]])
     ], CommunityComponent);
     return CommunityComponent;
 }());
@@ -358,14 +380,21 @@ var httpOptions = {
 var HttpService = /** @class */ (function () {
     function HttpService(http) {
         this.http = http;
-        this.communityUrl = '';
-        this.userUrl = '/posts';
+        this.communityUrl = '/communities';
+        this.userUrl = '/users';
     }
+    //登录
     HttpService.prototype.sendLogin = function (user) {
         return this.http.post(this.userUrl, user, httpOptions);
     };
+    //请求板块列表
     HttpService.prototype.getCommunities = function () {
         return this.http.get(this.communityUrl);
+    };
+    //请求某一板块
+    HttpService.prototype.getCommunity = function (id) {
+        var url = this.communityUrl + "/" + id;
+        return this.http.get(url);
     };
     HttpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -411,7 +440,15 @@ var InMemoryDataService = /** @class */ (function () {
             { id: 3, author: 'yym', initTime: '2019-04-11', content: "那我们要当心哦", parentId: 1 },
             { id: 4, author: '犹豫，就会败北', initTime: '2019-04-12', content: "什么？我就在A市我怎么不知道", parentId: 1 }
         ];
-        return { posts: posts };
+        var communities = [
+            { name: "java", id: "123123" },
+            { name: "js", id: "12331243" },
+            { name: "ts", id: "12331" },
+            { name: "C", id: "123313" },
+            { name: "C++", id: "121243" },
+            { name: "C#", id: "1233" }
+        ];
+        return { communities: communities };
     };
     InMemoryDataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -444,7 +481,7 @@ module.exports = ".example-form {\r\n    min-width: 150px;\r\n    max-width: 500
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <span class=\"title\">登录</span>\n</div>\n<form class=\"example-form\" >\n  <div>\n    <mat-form-field class=\"example-full-width\">\n      <input matInput type=\"text\" placeholder=\"用户名\" #username/>\n    </mat-form-field>\n  </div>\n  <div>\n    <mat-form-field class=\"example-full-width\">\n        <input matInput type=\"password\" placeholder=\"密码\" #password/>\n    </mat-form-field>\n  </div>\n</form>\n\n  <button mat-raised-button color=\"primary\" (click)=\"submit(username,password); password.value=''\" class=\"login\">\n    登录\n  </button>\n  <button mat-raised-button color=\"primary\" routerLink=\"/register\" class=\"register\">注册</button>\n\n"
+module.exports = "<div style=\"text-align:center\">\n  <span class=\"title\">登录</span>\n</div>\n<form class=\"example-form\">\n  <div>\n    <mat-form-field class=\"example-full-width\">\n      <input matInput type=\"text\" placeholder=\"用户名\" #username />\n    </mat-form-field>\n  </div>\n  <div>\n    <mat-form-field class=\"example-full-width\">\n      <input matInput type=\"password\" placeholder=\"密码\" #password />\n    </mat-form-field>\n  </div>\n</form>\n\n<button mat-raised-button color=\"primary\" class=\"login\"\n  (click)=\"submit(username.value,password.value);password.value=''\">\n  登录\n</button>\n<button mat-raised-button color=\"primary\" routerLink=\"/register\" class=\"register\">注册</button>"
 
 /***/ }),
 
@@ -461,22 +498,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _http_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../http.service */ "./src/app/http.service.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+
 
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(myhttp) {
+    function LoginComponent(myhttp, app) {
         this.myhttp = myhttp;
+        this.app = app;
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
-    LoginComponent.prototype.sumbit = function (username, password) {
+    LoginComponent.prototype.submit = function (username, password) {
         username = username.trim();
         password = password.trim();
         if (!username) {
             return;
         }
-        this.myhttp.sendLogin({ username: username, password: password }).subscribe(function () { return console.log("我发了哦"); });
+        this.myhttp.sendLogin({ username: username, password: password }).subscribe(function (result) { return console.log(); });
+        this.app.islogin = true;
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -484,7 +525,8 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_http_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_http_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"],
+            _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -542,36 +584,30 @@ var PostDetailComponent = /** @class */ (function () {
         this.location = location;
     }
     PostDetailComponent.prototype.ngOnInit = function () {
+        this.parentId = this.router.snapshot.paramMap.get('id');
         this.getPost();
         this.getResponse();
+        this.community = this.router.snapshot.paramMap.get('community');
+        console.log(this.community);
     };
+    //请求当前的第一个帖子
     PostDetailComponent.prototype.getPost = function () {
         var _this = this;
-        var id = this.router.snapshot.paramMap.get('id');
-        this.postService.getPostDetail(id).subscribe(function (post) { return _this.post = post; });
+        this.postService.getPosts(this.parentId).subscribe(function (post) { return _this.post = post.find(function (post) { return post.id == _this.parentId; }); });
     };
+    //请求当前第一个帖子的所有回帖
     PostDetailComponent.prototype.getResponse = function () {
         var _this = this;
-        var id = this.router.snapshot.paramMap.get('id');
-        this.postService.getPosts().subscribe(function (posts) { return _this.responsePosts = posts.filter(function (post) { return post.parentId == id; }); });
-        //this.postService.getPostDetialResponse(id).subscribe(posts => this.responsePosts = posts);
+        this.postService.getResPosts(this.parentId).subscribe(function (posts) { return _this.responsePosts = posts; });
         console.log("我请求了，鬼知道有没有拿到");
     };
-    PostDetailComponent.prototype.commit = function (content, initTime) {
+    //回帖
+    PostDetailComponent.prototype.commit = function (content) {
         var _this = this;
         content = content.trim();
-        var parentId = this.router.snapshot.paramMap.get('id');
-        this.now = new Date();
-        initTime = this.now.getFullYear() + "-";
-        if (this.now.getMonth() < 10)
-            initTime += "0" + (this.now.getMonth() + 1) + "-";
-        else
-            initTime += (this.now.getMonth() + 1) + "-";
-        if (this.now.getDate() < 10)
-            initTime += "0" + this.now.getDate();
-        else
-            initTime += this.now.getDate();
-        this.postService.addPost({ content: content, initTime: initTime, parentId: parentId }).subscribe(function (post) { return _this.responsePosts.push(post); });
+        var parentId = this.parentId;
+        var community = this.community;
+        this.postService.addPost({ content: content, parentId: parentId, community: community }).subscribe(function (post) { return _this.responsePosts.push(post); });
         alert("回帖成功 ");
     };
     PostDetailComponent.prototype.goBack = function () {
@@ -619,21 +655,31 @@ var httpOptions = {
 var PostService = /** @class */ (function () {
     function PostService(http) {
         this.http = http;
-        this.postsUrl = 'api/posts';
+        this.postsUrl = '/posts';
     }
-    PostService.prototype.getPosts = function () {
-        return this.http.get(this.postsUrl);
+    //请求板块id为community的帖子
+    PostService.prototype.getPosts = function (community) {
+        var url = this.postsUrl + "?community=" + community;
+        return this.http.get(url);
     };
-    PostService.prototype.getPostDetail = function (id) {
+    //请求帖子id为id的所有回帖
+    PostService.prototype.getResPosts = function (id) {
         var url = this.postsUrl + "/" + id;
         return this.http.get(url);
     };
-    PostService.prototype.getPostDetialResponse = function (parentId) {
-        var url = this.postsUrl + "/" + parentId;
-        return this.http.get(url);
+    //请求板块id为community的所有置顶帖
+    PostService.prototype.getTopposts = function (community) {
+        var topurl = this.postsUrl + "/top?community=" + community;
+        return this.http.get(topurl);
     };
+    //向服务器发帖
     PostService.prototype.addPost = function (post) {
         return this.http.post(this.postsUrl, post, httpOptions);
+    };
+    //回帖
+    PostService.prototype.replyPost = function (post) {
+        var replyUrl = this.postsUrl + "/" + post.parentId;
+        return this.http.post(replyUrl, post, httpOptions);
     };
     PostService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -666,7 +712,7 @@ module.exports = "ul\r\n{\r\n    list-style-type: none;\r\n}\r\n/*# sourceMappin
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h2 style=\"text-align:center\">欢迎来到开花论坛</h2>\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>标题</span>\n          <span style=\"float:right\">开贴时间</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let post of posts\">\n      <mat-card tabindex=\"0\" routerLink=\"/detail/{{post.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{post.title}}</span>\n          <span style=\"float:right\">{{post.initTime}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n  </ul>\n  <div>\n    <button mat-raised-button color=\"primary\" routerLink=\"/post/pull\">发帖</button>\n  </div>\n  <hr />\n  <div>\n    <p>标题</p>\n    <input #postTitle />\n    <p>正文</p>\n    <textarea #postContent></textarea>\n    <button mat-raised-button color=\"primary\"\n      (click)=\"pullPost(postTitle.value,postContent.value,postContent.value)\">发表新帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n  </div>\n</div>\n"
+module.exports = "<div>\n  <h2 style=\"text-align:center\">欢迎来到开花论坛</h2>\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>标题</span>\n          <span style=\"float:right\">开贴时间</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let toppost of topposts\">\n      <mat-card tabindex=\"0\" routerLink=\"/post/{{toppost.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{toppost.title}}</span>\n          <span style=\"float:right\">{{toppost.initTime}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <mat-divider></mat-divider>\n    <li *ngFor=\"let post of posts\">\n      <mat-card tabindex=\"0\" routerLink=\"/post/{{post.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{post.title}}</span>\n          <span style=\"float:right\">{{post.initTime}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n  </ul>\n  <div>\n    <button mat-raised-button color=\"primary\" routerLink=\"/community/{{community}}/pullpost\">发帖</button>\n  </div>\n  <hr />\n  <div>\n    <p>标题</p>\n    <input #postTitle />\n    <p>正文</p>\n    <textarea #postContent></textarea>\n    <button mat-raised-button color=\"primary\"\n      (click)=\"pullPost(postTitle.value,postContent.value);postTitle.value='';postContent.value=''\">发表新帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -682,49 +728,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PostComponent", function() { return PostComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../post.service */ "./src/app/post.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../post.service */ "./src/app/post.service.ts");
+
 
 
 
 var PostComponent = /** @class */ (function () {
-    function PostComponent(postService) {
+    function PostComponent(postService, router) {
         this.postService = postService;
+        this.router = router;
     }
     PostComponent.prototype.ngOnInit = function () {
+        this.community = this.router.snapshot.paramMap.get('community');
         this.getPosted();
+        this.getTopposts();
         //this.now=new Date;
         //console.log(this.now.getMonth());
         console.log("我出生了");
-        /*
-        this.posts.sort(
-          function(obj1,obj2):number{
-            return obj1.lastUpdateTime-obj2.lastUpdateTime;
-        });*/
-        //this.posts.filter(post =>post.parentId!=null);
     };
+    //请求当前板块内所有帖子
     PostComponent.prototype.getPosted = function () {
         var _this = this;
-        this.postService.getPosts().subscribe(function (posts) { return _this.posts = posts.filter(function (post) { return post.parentId == null; }); });
-        console.log();
+        this.postService.getPosts(this.community).subscribe(function (posts) { return _this.posts = posts; });
     };
-    PostComponent.prototype.pullPost = function (title, content, initTime) {
+    //请求当前板块内置顶帖子
+    PostComponent.prototype.getTopposts = function () {
+        var _this = this;
+        this.postService.getTopposts(this.community).subscribe(function (posts) { return _this.topposts = posts; });
+    };
+    //发帖
+    PostComponent.prototype.pullPost = function (title, content) {
         var _this = this;
         title = title.trim();
         content = content.trim();
-        this.now = new Date();
-        initTime = this.now.getFullYear() + "-";
-        if (this.now.getMonth() < 10)
-            initTime += "0" + (this.now.getMonth() + 1) + "-";
-        else
-            initTime += (this.now.getMonth() + 1) + "-";
-        if (this.now.getDate() < 10)
-            initTime += "0" + this.now.getDate();
-        else
-            initTime += this.now.getDate();
+        var community = this.community;
         if (!title) {
             return;
         }
-        this.postService.addPost({ title: title, content: content, initTime: initTime }).subscribe(function (post) { _this.posts.push(post); });
+        this.postService.addPost({ title: title, content: content, community: community }).subscribe(function (post) { _this.posts.push(post); });
         alert("发帖成功 ");
     };
     PostComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -733,7 +775,8 @@ var PostComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./post.component.html */ "./src/app/post/post.component.html"),
             styles: [__webpack_require__(/*! ./post.component.css */ "./src/app/post/post.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_post_service__WEBPACK_IMPORTED_MODULE_2__["PostService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_post_service__WEBPACK_IMPORTED_MODULE_3__["PostService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], PostComponent);
     return PostComponent;
 }());
@@ -760,7 +803,7 @@ module.exports = "body\r\n{\r\n    height: 100%;\r\n}\r\np\r\n{\r\n    font-fami
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <p>标题</p>\n  <input #postTitle />\n  <p>正文</p>\n  <textarea #postContent></textarea>\n  <button mat-raised-button color=\"primary\"\n    (click)=\"pullPost(postTitle.value,postContent.value,postContent.value)\">发表新帖</button>\n  <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n</div>\n"
+module.exports = "<div>\n  <p>标题</p>\n  <input #postTitle />\n  <p>正文</p>\n  <textarea #postContent></textarea>\n  <button mat-raised-button color=\"primary\"\n    (click)=\"pullPost(postTitle.value,postContent.value,postContent.value)\">发表新帖</button>\n  <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n</div>"
 
 /***/ }),
 
@@ -776,36 +819,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PullPostComponent", function() { return PullPostComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../post.service */ "./src/app/post.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _post_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../post.service */ "./src/app/post.service.ts");
+
 
 
 
 
 var PullPostComponent = /** @class */ (function () {
-    function PullPostComponent(postService, location) {
+    function PullPostComponent(postService, location, router) {
         this.postService = postService;
         this.location = location;
+        this.router = router;
     }
     PullPostComponent.prototype.ngOnInit = function () {
+        this.community = this.router.snapshot.paramMap.get('community');
+        //this.community=this.postComponent.community;
+        console.log(this.community);
     };
-    PullPostComponent.prototype.pullPost = function (title, content, initTime) {
+    PullPostComponent.prototype.pullPost = function (title, content) {
+        var _this = this;
         title = title.trim();
         content = content.trim();
-        this.now = new Date();
-        initTime = this.now.getFullYear() + "-";
-        if (this.now.getMonth() < 10)
-            initTime += "0" + (this.now.getMonth() + 1) + "-";
-        else
-            initTime += (this.now.getMonth() + 1) + "-";
-        if (this.now.getDate() < 10)
-            initTime += "0" + this.now.getDate();
-        else
-            initTime += this.now.getDate();
+        var community = this.community;
         if (!title) {
             return;
         }
-        this.postService.addPost({ title: title, content: content, initTime: initTime }).subscribe(function (post) { console.log(post.id); });
+        this.postService.addPost({ title: title, content: content, community: community }).subscribe(function () { _this.location.back(); });
         alert("发帖成功 ");
         this.goBack();
     };
@@ -818,8 +859,9 @@ var PullPostComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./pull-post.component.html */ "./src/app/pull-post/pull-post.component.html"),
             styles: [__webpack_require__(/*! ./pull-post.component.css */ "./src/app/pull-post/pull-post.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_post_service__WEBPACK_IMPORTED_MODULE_3__["PostService"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_post_service__WEBPACK_IMPORTED_MODULE_4__["PostService"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], PullPostComponent);
     return PullPostComponent;
 }());
