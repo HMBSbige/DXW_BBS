@@ -16,6 +16,8 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @Configuration
 public class StaticContentConfig {
+    // https://www.logicbig.com/tutorials/spring-framework/spring-boot/boot-serve-static.html
+    // https://www.baeldung.com/spring-webflux-static-content
 
     @Bean
     public RouterFunction<ServerResponse> htmlRouter(@Value("classpath:/static/index.html") Resource html) {
@@ -31,10 +33,5 @@ public class StaticContentConfig {
     public RouterFunction<ServerResponse> allRouter() {
         return RouterFunctions.resources("/**", new ClassPathResource("static/"));
     }
-
-//    @Bean
-//    public RouterFunction<ServerResponse> imgRouter() {
-//        return RouterFunctions.resources("/assets/**", new ClassPathResource("static/assets/"));
-//    }
 
 }

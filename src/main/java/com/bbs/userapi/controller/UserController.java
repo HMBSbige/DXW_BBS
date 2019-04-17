@@ -8,9 +8,11 @@ import com.bbs.userapi.security.PBKDF2Encoder;
 import com.bbs.userapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -29,6 +31,12 @@ public class UserController {
             .findByUsername(name)
             .map(ResponseEntity::ok)
             .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping(value = "/search/{name}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<User> getLikeUser(@PathVariable String name) {
+        return userRepository
+            .findByLikeUsername(name);
     }
 
     @PutMapping("{id}")
@@ -51,7 +59,11 @@ public class UserController {
         return userRepository
             .findById(id)
             .flatMap(user -> {
-                user.setEnabled(false);
+                if (user.getEnabled() == true) {
+                    user.setEnabled(false);
+                } else {
+                    user.setEnabled(true);
+                }
                 return userRepository.update(user);
             })
             .map(ResponseEntity::ok)
