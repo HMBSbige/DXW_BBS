@@ -74,7 +74,7 @@ public class PostTopController {
     }
 
 
-    @DeleteMapping("/top/{id}")
+    @DeleteMapping("{id}")
     @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> unsetTopPost(@PathVariable(value = "id") String id,
                                                    @RequestBody Post post, Mono<Principal> principal) {
