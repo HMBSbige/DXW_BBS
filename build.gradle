@@ -29,7 +29,6 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     // https://stackoverflow.com/questions/40228036/how-to-turn-off-spring-security-in-spring-boot-application

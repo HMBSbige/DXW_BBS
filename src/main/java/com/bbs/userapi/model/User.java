@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Document
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString @AllArgsConstructor @NoArgsConstructor
 public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -25,12 +23,13 @@ public class User implements UserDetails {
 
     private String password;
 
-    @Getter
-    @Setter
+    @Getter @Setter
+    private String signature;
+
+    @Getter @Setter
     private Boolean enabled;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private List<Role> roles;
 
     @Override

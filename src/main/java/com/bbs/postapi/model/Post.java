@@ -19,15 +19,15 @@ public class Post {
 
     private String author;
 
+    private String Title;
+
     private String content;
 
     private String parentId;
 
     private String community;
 
-    private int upvote;
-
-    private boolean visibility;
+    private boolean top;
 
     private boolean deleted;
 
@@ -35,19 +35,24 @@ public class Post {
 
     private LocalDateTime lastUpdateTime;
 
-    public Post(String id, String author, String content, String community,
+    public Post(String id, String author, String Title,
+                String content, String community,
                 LocalDateTime initTime, LocalDateTime lastUpdateTime) {
         // new post
         this.id = id;
         this.author = author;
+        this.Title = Title;
         this.content = content;
         this.parentId = null;
         this.community = community;
-        this.upvote = 0;
-        this.visibility = true;
+        this.top = false;
         this.deleted = false;
         this.initTime = initTime;
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public boolean getDeleted(){
+        return this.deleted;
     }
 
 //    @Override
