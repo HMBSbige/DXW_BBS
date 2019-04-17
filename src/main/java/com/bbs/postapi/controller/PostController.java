@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.bbs.postapi.exception.UserDisabledException;
+import com.bbs.userapi.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class PostController {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping(value = "", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     // stream/text-event
@@ -54,11 +59,23 @@ public class PostController {
         LocalDateTime time = LocalDateTime.now();
         return principal
             .map(Principal::getName)
+            .flatMap(username -> userRepository
+                .findByName(username)
+                .flatMap(user -> {
+                    if (user.getEnabled() == false) {
+                        return Mono.error(new UserDisabledException("UserDisabledException"));
+                    } else {
+                        return Mono.just(username);
+                    }
+                })
+            )
             .flatMap(username -> postRepository.save(
                 new Post(null, username, post_in_request.getTitle(),
                     post_in_request.getContent(), post_in_request.getCommunity(), time, time))
             )
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
+            .onErrorResume(UserDisabledException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
@@ -68,6 +85,16 @@ public class PostController {
         LocalDateTime time = LocalDateTime.now();
         return principal
             .map(Principal::getName)
+            .flatMap(username -> userRepository
+                .findByName(username)
+                .flatMap(user -> {
+                    if (user.getEnabled() == false) {
+                        return Mono.error(new UserDisabledException("UserDisabledException"));
+                    } else {
+                        return Mono.just(username);
+                    }
+                })
+            )
             .flatMap(username -> postRepository.save(new Post(
                 null, username, post_in_request.getTitle(),
                 post_in_request.getContent(),
@@ -75,6 +102,8 @@ public class PostController {
                 false, false, time, time))
             )
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
+            .onErrorResume(UserDisabledException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
@@ -83,6 +112,16 @@ public class PostController {
                                                  @RequestBody Post post, Mono<Principal> principal) {
         return principal
             .map(Principal::getName)
+            .flatMap(username -> userRepository
+                .findByName(username)
+                .flatMap(user -> {
+                    if (user.getEnabled() == false) {
+                        return Mono.error(new UserDisabledException("UserDisabledException"));
+                    } else {
+                        return Mono.just(username);
+                    }
+                })
+            )
             .flatMap(username -> postRepository.findById(id)
                     .filter(existingPost -> username.equals(existingPost.getAuthor()))
                     .flatMap(existingPost -> {
@@ -96,7 +135,10 @@ public class PostController {
             )
             .map(ResponseEntity::ok)
             // https://stackoverflow.com/questions/44273112/onerrorresume-not-working-as-expected
-            .onErrorResume(UserIdNotMatchException.class, e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .onErrorResume(UserIdNotMatchException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .onErrorResume(UserDisabledException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
@@ -104,6 +146,16 @@ public class PostController {
     public Mono<ResponseEntity<Post>> deletePost(@PathVariable(value = "id") String id, Mono<Principal> principal) {
         return principal
             .map(Principal::getName)
+            .flatMap(username -> userRepository
+                .findByName(username)
+                .flatMap(user -> {
+                    if (user.getEnabled() == false) {
+                        return Mono.error(new UserDisabledException("UserDisabledException"));
+                    } else {
+                        return Mono.just(username);
+                    }
+                })
+            )
             .flatMap(username -> postRepository.findById(id)
                 .filter(existingPost -> username.equals(existingPost.getAuthor()))
                 .flatMap(existingPost -> {
@@ -114,6 +166,8 @@ public class PostController {
             )
             .map(ResponseEntity::ok)
             .onErrorResume(UserIdNotMatchException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
+            .onErrorResume(UserDisabledException.class,
                 e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
