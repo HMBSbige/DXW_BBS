@@ -55,13 +55,13 @@ public class BbsApiApplication {
                 .subscribe(System.out::println);
 
             postRepository
-                    .deleteAll()
-                    .thenMany(
-                        postRepository.save(
-                            new Post(
-                                null, "user1", "first post",
-                                "first post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
-                            ))
+                .deleteAll()
+                .thenMany(
+                    postRepository.save(
+                        new Post(
+                            null, "user1", "first post",
+                            "first post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
+                        ))
                         .flatMap(post -> {
                             LocalDateTime time = LocalDateTime.now();
                             Flux<Post> postFlux = postRepository.saveAll(
@@ -84,10 +84,6 @@ public class BbsApiApplication {
                                             "third comment",
                                             post.getId(), "5cb1f17c80a35f37407791ee",
                                             false, false, time, time
-                                        ),
-                                        new Post(
-                                            null, "user1", "second post",
-                                            "second post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
                                         ))
                             );
                             postFlux
@@ -95,19 +91,49 @@ public class BbsApiApplication {
                                 .subscribe(System.out::println);
                             return Mono.just(post);
                         })
-                    )
-                    .subscribe(System.out::println);
+                )
+                .subscribe(System.out::println);
+
+            postRepository.save(
+                new Post(
+                    null, "user2", "second post",
+                    "second post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
+                ))
+                .flatMap(post -> {
+                    LocalDateTime time = LocalDateTime.now();
+                    Flux<Post> postFlux = postRepository.saveAll(
+                        Flux
+                            .just(
+                                new Post(
+                                    null, "user2", null,
+                                    "first comment",
+                                    post.getId(), "5cb1f17c80a35f37407791ee",
+                                    false, false, time, time
+                                ),
+                                new Post(
+                                    null, "user1", null,
+                                    "second comment",
+                                    post.getId(), "5cb1f17c80a35f37407791ee",
+                                    false, false, time, time
+                                ))
+                    );
+                    postFlux
+                        .thenMany(postRepository.findAll())
+                        .subscribe(System.out::println);
+                    return Mono.just(post);
+                }).subscribe(System.out::println);
+
 
             Flux<User> productFlux = userRepository
-                    .deleteAll()
-                    .thenMany(
-                            Flux
-                            .just(
-                new User("user1", passwordEncoder.encode("user1"), null, false, true, Arrays.asList(Role.ROLE_USER)),
-                new User("user2", passwordEncoder.encode("user2"), null, false, true, Arrays.asList(Role.ROLE_USER)),
-                new User("admin", passwordEncoder.encode("admin"), null, false, true, Arrays.asList(Role.ROLE_ADMIN)))
-                            .flatMap(userRepository::save)
-                    );
+                .deleteAll()
+                .thenMany(
+                    Flux
+                        .just(
+                            new User("user1", passwordEncoder.encode("user1"), null, false, true, Arrays.asList(Role.ROLE_USER)),
+                            new User("user2", passwordEncoder.encode("user2"), null, false, true, Arrays.asList(Role.ROLE_USER)),
+                            new User("admin", passwordEncoder.encode("admin"), null, false, true, Arrays.asList(Role.ROLE_ADMIN)))
+                        .flatMap(userRepository::save)
+                );
 
 //            Flux<User> productFlux = Flux.just(
 //                    new User(null, "Avenger: Infinity Wars", "Action", LocalDateTime.now()),
@@ -116,8 +142,8 @@ public class BbsApiApplication {
 //                    .flatMap(userRepository::save);
 
             productFlux
-                    .thenMany(userRepository.findAll())
-                    .subscribe(System.out::println);
+                .thenMany(userRepository.findAll())
+                .subscribe(System.out::println);
         };
     }
 }

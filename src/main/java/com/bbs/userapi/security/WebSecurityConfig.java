@@ -43,6 +43,7 @@ public class WebSecurityConfig {
             .pathMatchers(HttpMethod.OPTIONS).permitAll()
             .pathMatchers("/*").permitAll()
             .pathMatchers("/assets/*").permitAll()
+            .pathMatchers("/assets/icon/*").permitAll()
             .pathMatchers("/signup").permitAll()
             .pathMatchers("/login").permitAll()
             .pathMatchers("/users").permitAll()
