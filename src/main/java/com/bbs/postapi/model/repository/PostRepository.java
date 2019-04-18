@@ -18,8 +18,8 @@ public interface PostRepository extends ReactiveMongoRepository<Post, String> {
     Flux<Post> findTopAllPagination(String community, final Pageable page);
 
     // https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongodb.repositories.queries.sort
-    @Query(value = "{ 'parentId': {$ne:null},'deleted': false, 'community': ?0 }", sort = "{ 'lastUpdateTime': -1}")
-    Flux<Post> findHotAllPagination(String community, final Pageable page);
+    @Query(value = "{ 'parentId': {$ne:null},'deleted': false }", sort = "{ 'lastUpdateTime': -1}")
+    Flux<Post> findHotAllPagination(final Pageable page);
 
     @Query("{ 'parentId': null, 'deleted': false, 'author': ?0 }")
     Flux<Post> findUserPostAllPagination(String username, final Pageable page);

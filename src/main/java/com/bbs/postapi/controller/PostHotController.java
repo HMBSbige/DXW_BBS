@@ -34,8 +34,7 @@ public class PostHotController {
     // stream/text-event
     // https://www.callicoder.com/reactive-rest-apis-spring-webflux-reactive-mongo/
     // https://medium.com/@nithinmallya4/processing-streaming-data-with-spring-webflux-ed0fc68a14de
-    public Flux<Post> getHotPosts(@RequestParam(value = "community") String community,
-                                  @RequestParam(value = "page", required = false) Optional<Integer> page) {
+    public Flux<Post> getHotPosts(@RequestParam(value = "page", required = false) Optional<Integer> page) {
         // https://zupzup.org/kotlin-webflux-example/
         // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
         return postRepository
