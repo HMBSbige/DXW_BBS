@@ -103,9 +103,9 @@ public class BbsApiApplication {
                     .thenMany(
                             Flux
                             .just(
-                new User("user", passwordEncoder.encode("user"), null, true, Arrays.asList(Role.ROLE_USER)),
-                new User("manager", passwordEncoder.encode("manager"), null, true, Arrays.asList(Role.ROLE_MANAGER)),
-                new User("admin", passwordEncoder.encode("admin"), null, true, Arrays.asList(Role.ROLE_ADMIN)))
+                new User("user1", passwordEncoder.encode("user1"), null, false, true, Arrays.asList(Role.ROLE_USER)),
+                new User("user2", passwordEncoder.encode("user2"), null, false, true, Arrays.asList(Role.ROLE_USER)),
+                new User("admin", passwordEncoder.encode("admin"), null, false, true, Arrays.asList(Role.ROLE_ADMIN)))
                             .flatMap(userRepository::save)
                     );
 

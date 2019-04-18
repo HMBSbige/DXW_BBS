@@ -30,6 +30,9 @@ public class User implements UserDetails {
     private String signature;
 
     @Getter @Setter
+    private Boolean lock;
+
+    @Getter @Setter
     private Boolean enabled;
 
     @Getter @Setter
@@ -51,7 +54,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return this.lock;
     }
 
     @Override

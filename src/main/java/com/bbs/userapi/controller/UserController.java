@@ -2,6 +2,7 @@ package com.bbs.userapi.controller;
 
 import java.security.Principal;
 
+import com.bbs.userapi.exception.UserNotMatchException;
 import com.bbs.userapi.model.Message;
 import com.bbs.userapi.model.User;
 import com.bbs.userapi.security.PBKDF2Encoder;
@@ -25,44 +26,53 @@ public class UserController {
     @Autowired
     private PBKDF2Encoder passwordEncoder;
 
-    @GetMapping("{name}")
-    public Mono<ResponseEntity<User>> getUser(@PathVariable String name) {
+    @GetMapping("{username}")
+    public Mono<ResponseEntity<User>> getUser(@PathVariable String username) {
         return userRepository
-            .findByUsername(name)
+            .findByUsername(username)
             .map(ResponseEntity::ok)
             .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/search/{name}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<User> getLikeUser(@PathVariable String name) {
+    @GetMapping(value = "/search/{username}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<User> getLikeUser(@PathVariable String username) {
         return userRepository
-            .findByLikeUsername(name);
+            .findByLikeUsername(username);
     }
 
-    @PutMapping("{id}")
-    public Mono<ResponseEntity<User>> updateUser(@PathVariable(value = "id") String id,
-                                                 @RequestBody User user_in_request) {
-        return userRepository
-            .findById(id)
+    @PutMapping("{username}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public Mono<ResponseEntity<User>> updateUser(@PathVariable String username,
+                                                 @RequestBody User user_in_request,
+                                                 Mono<Principal> principal) {
+        return principal
+            .map(Principal::getName)
+            .flatMap(username_principal -> userRepository.findByUsername(username_principal))
             .flatMap(user -> {
-                user.setSignature(user_in_request.getSignature());
-                user.setPassword(passwordEncoder.encode(user_in_request.getPassword()));
-                return userRepository.update(user);
+                if (user.getUsername().equals(user_in_request.getUsername())) {
+                    user.setSignature(user_in_request.getSignature());
+                    user.setPassword(passwordEncoder.encode(user_in_request.getPassword()));
+                    return userRepository.update(user);
+                } else {
+                    return Mono.error(new UserNotMatchException("UserNotMatchException"));
+                }
             })
             .map(ResponseEntity::ok)
+            .onErrorResume(UserNotMatchException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{username}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<ResponseEntity<User>> deletePost(@PathVariable(value = "id") String id) {
+    public Mono<ResponseEntity<User>> deletePost(@PathVariable String username) {
         return userRepository
-            .findById(id)
+            .findByUsername(username)
             .flatMap(user -> {
-                if (user.getEnabled() == true) {
-                    user.setEnabled(false);
-                } else {
-                    user.setEnabled(true);
+                if(user.getLock()==true){
+                    user.setLock(false);
+                }else {
+                    user.setLock(true);
                 }
                 return userRepository.update(user);
             })

@@ -62,7 +62,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.getLock() == false) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -88,7 +88,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.getLock() == false) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -115,7 +115,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.getLock() == false) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -149,7 +149,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.getLock() == false) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
