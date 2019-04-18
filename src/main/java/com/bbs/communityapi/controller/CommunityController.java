@@ -35,9 +35,8 @@ public class CommunityController {
             .findAllPagination(PageRequest.of(page.orElse(0), 10));
     }
 
-    @GetMapping(value = "{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Mono<ResponseEntity<Community>> getCommunity(@PathVariable String id,
-                                                        @RequestParam(value = "page", required = false) Optional<Integer> page) {
+    @GetMapping(value = "{id}")
+    public Mono<ResponseEntity<Community>> getCommunity(@PathVariable String id) {
         // get method parameters
         // https://stackoverflow.com/questions/45924505/is-there-any-way-to-implement-pagination-in-spring-webflux-and-spring-data-react
         return communityRepository.findById(id)
@@ -72,7 +71,7 @@ public class CommunityController {
                 return communityRepository.save(community);
             })
             .map(ResponseEntity::ok)
-            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
     @DeleteMapping("{id}")
@@ -85,7 +84,7 @@ public class CommunityController {
                 return communityRepository.save(community);
             })
             .map(ResponseEntity::ok)
-            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
 }

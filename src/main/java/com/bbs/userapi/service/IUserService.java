@@ -10,6 +10,10 @@ public interface IUserService {
 
     Mono<User> findById(String id);
 
+    Mono<User> findByUsername(String username);
+
+    Flux<User> findByLikeUsername(String username);
+
     Flux<User> findAll();
 
     Mono<User> update(User e);

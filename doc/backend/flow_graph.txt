@@ -1,0 +1,214 @@
+用户注册;
+if(hash(用户密码)==数据库中用户密码){
+  return jwt(用户信息)
+}else{
+  return http.401 登录错误
+}
+
+用户注册;
+if(用户名存在于数据库中){
+  return http.409 CONFLICT
+}else{
+  储存用户于数据库中;
+  return http.201 CREATED
+}
+
+用户个人信息修改;
+if(用户名存在于数据库中){
+  if(当前登录用户为修改的用户){
+    储存新数据与数据库中;
+    return http.200 OK
+  }else return http.400 BAD_REQUEST
+}else{
+  return http.404 NOT_FOUND
+}
+
+用户封禁;
+if(操作用户为管理员){
+  if(用户名存在于数据库中){
+    修改用户信息为已封禁;
+    return http.200 OK
+  }else{
+    return http.404 NOT_FOUND
+  }
+}else{
+  return http.401 UNAUTHORIZED
+}
+
+板块查询
+GET;
+if(板块id==null){
+  if(页面n==0){
+    return ok(板块列表第一页)
+  }else{
+    return ok(板块列表第n页)
+  }
+}else{
+  if(板块id存在于数据库中){
+    return ok(板块id信息)
+  }else{
+    return notFound()
+  }
+}
+
+板块查询
+POST;
+if(用户为管理员){
+  储存版块信息进数据库;
+  return 版块信息;
+}else{
+  return badRequest()
+}
+
+板块查询
+PUT;
+if(用户为管理员){
+  储存修改后的板块信息;
+  return 修改后的板块信息;
+}else{
+  return badRequest()
+}
+
+板块查询
+DELETE;
+if(用户为管理员){
+  设置板块信息为不可见;
+  储存进数据库
+  return 版块信息;
+}else{
+  return badRequest()
+}
+
+帖子查询
+GET;
+if(板块cid != null){
+  if(分页n == null){
+    return ok(板块第一页)
+  }else{
+    return ok(板块第n页)
+  }
+}
+else if(帖子id != null){
+  查询所有回复帖子的跟帖;
+  if(分页n == null){
+    return ok(跟帖第一页)
+  }else{
+    return ok(跟帖第n页)
+  }
+}else{
+  return badRequest()
+}
+
+帖子发布
+POST;
+if(用户已登录){
+  if(用户已被封禁){
+    return badRequest()
+  }else{
+    if(父帖子id == null){
+      储存新帖子;
+      return 帖子;
+    }else{
+      储存新回复;
+      return 回复;
+    }
+  }
+}else{
+  return unauthorized()
+}
+
+帖子修改
+PUT;
+if(用户已登录){
+  if(用户已被封禁){
+    return badRequest()
+  }else{
+    查找帖子;
+    if(帖子作者为用户){
+      修改帖子;
+      储存新帖子;
+      return 帖子;
+    }else{
+      return badRequest()
+    }
+  }
+}else{
+  return unauthorized()
+}
+
+帖子删除
+DELETE;
+if(用户已登录){
+  if(用户已被封禁){
+    return badRequest()
+  }else{
+    查找帖子;
+    if(帖子作者为用户){
+      修改帖子为不可见;
+      储存新帖子;
+      return 帖子;
+    }else{
+      return badRequest()
+    }
+  }
+}else{
+  return unauthorized()
+}
+
+热帖查询
+GET;
+if(分页n == null){
+  查询最近的10个回复;
+}else{
+  查询最近的n\*10+10个回复;
+}
+对其父帖去重;
+查询不重复的父帖;
+return 这些父帖
+
+置顶帖查询
+GET;
+if(分页n == null){
+  查询最近的10个置顶帖;
+}else{
+  查询最近的n\*10+10个置顶帖;
+}
+return 这些置顶帖
+
+置顶帖设置
+POST;
+if(用户已登录){
+  根据板块cid查询板块信息;
+  if(用户在板块的管理员中){
+    查询帖子/回复;
+    if(是回复(即父id不为空)){
+      return badRequest()
+    }else{
+      添加帖子属性(置顶);
+      return ok(帖子)
+    }
+  }else{
+    return badRequest()
+  }
+}else{
+  return unauthorized();
+}
+
+置顶帖取消
+DELETE;
+if(用户已登录){
+  根据板块cid查询板块信息;
+  if(用户在板块的管理员中){
+    查询帖子/回复;
+    if(是回复(即父id不为空)){
+      return badRequest()
+    }else{
+      取消帖子属性(置顶);
+      return ok(帖子)
+    }
+  }else{
+    return badRequest()
+  }
+}else{
+  return unauthorized();
+}

@@ -1,24 +1,22 @@
 package com.bbs.postapi.controller;
 
-import java.security.Principal;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import com.bbs.postapi.exception.UserDisabledException;
+import com.bbs.postapi.exception.UserIdNotMatchException;
+import com.bbs.postapi.model.Post;
+import com.bbs.postapi.model.repository.PostRepository;
 import com.bbs.userapi.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import com.bbs.postapi.model.Post;
-import com.bbs.postapi.model.repository.PostRepository;
-import com.bbs.postapi.exception.UserIdNotMatchException;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
@@ -62,7 +60,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.isLocked() == true) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -88,7 +86,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.isLocked() == true) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -115,7 +113,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.isLocked() == true) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
@@ -149,7 +147,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.getEnabled() == false) {
+                    if (user.isLocked() == true) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);

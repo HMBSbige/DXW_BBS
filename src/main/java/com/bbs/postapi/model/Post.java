@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Document
 @Data
@@ -19,7 +20,7 @@ public class Post {
 
     private String author;
 
-    private String Title;
+    private String title;
 
     private String content;
 
@@ -35,13 +36,13 @@ public class Post {
 
     private LocalDateTime lastUpdateTime;
 
-    public Post(String id, String author, String Title,
+    public Post(String id, String author, String title,
                 String content, String community,
                 LocalDateTime initTime, LocalDateTime lastUpdateTime) {
         // new post
         this.id = id;
         this.author = author;
-        this.Title = Title;
+        this.title = title;
         this.content = content;
         this.parentId = null;
         this.community = community;
@@ -55,9 +56,18 @@ public class Post {
         return this.deleted;
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, genre, releaseDate);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, author, title, content, community);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Post) {
+            Post post= (Post) obj;
+            return id.equals(post.getId());
+        }
+        return false;
+    }
 
 }

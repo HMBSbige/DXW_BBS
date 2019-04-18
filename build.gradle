@@ -17,6 +17,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
+    // https://stackoverflow.com/questions/46939455/spring-boot-gradle-how-to-build-executable-jar
     baseName = 'gs-reactive-rest-service'
     version = '0.1.0'
 }
@@ -38,9 +39,9 @@ dependencies {
     implementation 'org.projectlombok:lombok'
     // https://stackoverflow.com/questions/53809244/difficulty-importing-jwt-json-web-token-in-spring-boot-gradle-project
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-    runtime 'io.jsonwebtoken:jjwt-impl'
-    runtime 'io.jsonwebtoken:jjwt-jackson'
-    testImplementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+//    runtime 'io.jsonwebtoken:jjwt-impl'
+//    runtime 'io.jsonwebtoken:jjwt-jackson'
+    testImplementation ('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.projectreactor:reactor-test')
     testImplementation 'org.springframework.security:spring-security-test'

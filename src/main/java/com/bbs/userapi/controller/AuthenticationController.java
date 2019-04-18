@@ -51,7 +51,7 @@ public class AuthenticationController {
             .switchIfEmpty(Mono
                 .just(new User(
                     ar.getUsername(), passwordEncoder.encode(ar.getPassword()),
-                    null ,true, Arrays.asList(Role.ROLE_USER)))
+                    null, false, true, Arrays.asList(Role.ROLE_USER)))
                 .flatMap(user -> userRepository.create(user))
                 .map(user -> ResponseEntity.status(HttpStatus.CREATED).build())
             );

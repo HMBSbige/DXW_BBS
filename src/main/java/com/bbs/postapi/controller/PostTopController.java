@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -42,7 +41,6 @@ public class PostTopController {
     }
 
     @PostMapping("{id}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> setTopPost(@PathVariable(value = "id") String id,
                                                  @RequestBody Post post, Mono<Principal> principal) {
         return principal
@@ -75,7 +73,6 @@ public class PostTopController {
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> unsetTopPost(@PathVariable(value = "id") String id,
                                                    @RequestBody Post post, Mono<Principal> principal) {
         return principal
@@ -88,6 +85,8 @@ public class PostTopController {
                         return postRepository
                             .findById(id)
                             .flatMap(existingPost -> {
+                                if(existingPost.getParentId()!=null)
+                                    return Mono.error(new CommentsCantSetTopException("CommentsCantSetTopException"));
                                 existingPost.setTop(false);
                                 return postRepository.save(existingPost);
                             });
@@ -97,6 +96,8 @@ public class PostTopController {
                 })
             )
             .map(ResponseEntity::ok)
+            .onErrorResume(CommentsCantSetTopException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .onErrorResume(UserCantSetTopException.class,
                 e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

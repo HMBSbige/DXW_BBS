@@ -23,6 +23,10 @@ public class UserService implements IUserService {
         return userRepository.findByName(username);
     }
 
+    public Flux<User> findByLikeUsername(String username) {
+        return userRepository.findByLikeName(username);
+    }
+
     public Mono<User> findById(String id) {
         return userRepository.findById(id);
     }
