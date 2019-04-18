@@ -38,7 +38,7 @@ public class PostHotController {
         // https://zupzup.org/kotlin-webflux-example/
         // https://thepracticaldeveloper.com/2017/11/04/full-reactive-stack-with-spring-webflux-and-angularjs/#Pagination
         return postRepository
-            .findHotAllPagination(community, PageRequest.of(page.orElse(0), 10))
+            .findHotAllPagination(PageRequest.of(page.orElse(0), 10))
             // .filter(distinctByKey(post -> post.getParentId()))
             // why not that?
             // https://stackoverflow.com/questions/44874857/intellij-can-be-replaced-with-method-reference
@@ -51,7 +51,7 @@ public class PostHotController {
     // which can reduce mongodb I/O
     // https://blog.csdn.net/haiyoung/article/details/80934467
     private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
