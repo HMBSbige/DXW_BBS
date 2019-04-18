@@ -67,6 +67,10 @@ public class User implements UserDetails {
         return this.enabled;
     }
 
+    public boolean isLocked() {
+        return this.lock;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream().map(authority -> new SimpleGrantedAuthority(authority.name())).collect(Collectors.toList());

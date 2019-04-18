@@ -42,7 +42,7 @@ public class PostTopController {
     }
 
     @PostMapping("{id}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> setTopPost(@PathVariable(value = "id") String id,
                                                  @RequestBody Post post, Mono<Principal> principal) {
         return principal
@@ -75,7 +75,7 @@ public class PostTopController {
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public Mono<ResponseEntity<Post>> unsetTopPost(@PathVariable(value = "id") String id,
                                                    @RequestBody Post post, Mono<Principal> principal) {
         return principal
