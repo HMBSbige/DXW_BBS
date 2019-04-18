@@ -34,12 +34,6 @@ public class UserController {
             .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/search/{username}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<User> getLikeUser(@PathVariable String username) {
-        return userRepository
-            .findByLikeUsername(username);
-    }
-
     @PutMapping("{username}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
     public Mono<ResponseEntity<User>> updateUser(@PathVariable String username,

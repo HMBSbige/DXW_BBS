@@ -59,7 +59,7 @@ public class BbsApiApplication {
                     .thenMany(
                         postRepository.save(
                             new Post(
-                                null, "user", "first post",
+                                null, "user1", "first post",
                                 "first post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
                             ))
                         .flatMap(post -> {
@@ -68,25 +68,25 @@ public class BbsApiApplication {
                                 Flux
                                     .just(
                                         new Post(
-                                            null, "user", null,
+                                            null, "user1", null,
                                             "first comment",
                                             post.getId(), "5cb1f17c80a35f37407791ee",
                                             false, false, time, time
                                         ),
                                         new Post(
-                                            null, "user", null,
+                                            null, "user1", null,
                                             "second comment",
                                             post.getId(), "5cb1f17c80a35f37407791ee",
                                             false, false, time, time
                                         ),
                                         new Post(
-                                            null, "user", null,
+                                            null, "user1", null,
                                             "third comment",
                                             post.getId(), "5cb1f17c80a35f37407791ee",
                                             false, false, time, time
                                         ),
                                         new Post(
-                                            null, "user", "second post",
+                                            null, "user1", "second post",
                                             "second post", "5cb1f17c80a35f37407791ee", LocalDateTime.now(), LocalDateTime.now()
                                         ))
                             );

@@ -772,6 +772,80 @@
 					"pathVariables": {}
 				}
 			]
+		},
+		{
+			"id": "c26bf94b-ba7a-46a3-b164-e24b98a254d4",
+			"name": "bbs.search",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"592a495f-f14d-4a20-b8a0-f2df502e2d1f",
+				"ec5cd1cb-3cf5-4f19-9154-94939d87b039",
+				"3b4eca92-488e-487c-ade3-09d7576f21b9"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
+				{
+					"id": "3b4eca92-488e-487c-ade3-09d7576f21b9",
+					"name": "http://127.0.0.1:8080/search/comments/user1",
+					"url": "http://127.0.0.1:8080/search/comments/user1",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": null,
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "c26bf94b-ba7a-46a3-b164-e24b98a254d4",
+					"pathVariables": {}
+				},
+				{
+					"id": "592a495f-f14d-4a20-b8a0-f2df502e2d1f",
+					"name": "search user like",
+					"url": "http://127.0.0.1:8080/search/users/user",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": null,
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "c26bf94b-ba7a-46a3-b164-e24b98a254d4",
+					"pathVariables": {}
+				},
+				{
+					"id": "ec5cd1cb-3cf5-4f19-9154-94939d87b039",
+					"name": "search posts",
+					"url": "http://127.0.0.1:8080/search/posts/user1",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": null,
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "c26bf94b-ba7a-46a3-b164-e24b98a254d4",
+					"pathVariables": {}
+				}
+			]
 		}
 	],
 	"environments": [
@@ -787,7 +861,7 @@
 			]
 		},
 		{
-			"id": "ab5b15e6-8fbe-473e-8be5-ddebb0fe9f5b",
+			"id": "ecf7d85a-c928-49c5-803f-d1b1b6b1b38f",
 			"name": "My Workspace - globals",
 			"values": []
 		}

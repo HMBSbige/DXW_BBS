@@ -21,4 +21,10 @@ public interface PostRepository extends ReactiveMongoRepository<Post, String> {
     @Query(value = "{ 'parentId': {$ne:null},'deleted': false, 'community': ?0 }", sort = "{ 'lastUpdateTime': -1}")
     Flux<Post> findHotAllPagination(String community, final Pageable page);
 
+    @Query("{ 'parentId': null, 'deleted': false, 'author': ?0 }")
+    Flux<Post> findUserPostAllPagination(String username, final Pageable page);
+
+    @Query("{ 'parentId': {$ne:null}, 'deleted': false, 'author': ?0 }")
+    Flux<Post> findUserCommentAllPagination(String username, final Pageable page);
+
 }
