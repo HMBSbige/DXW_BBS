@@ -72,7 +72,7 @@ public class CommunityController {
                 return communityRepository.save(community);
             })
             .map(ResponseEntity::ok)
-            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
     @DeleteMapping("{id}")
@@ -85,7 +85,7 @@ public class CommunityController {
                 return communityRepository.save(community);
             })
             .map(ResponseEntity::ok)
-            .defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+            .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
 }
