@@ -86,6 +86,8 @@ public class PostTopController {
                         return postRepository
                             .findById(id)
                             .flatMap(existingPost -> {
+                                if(existingPost.getParentId()!=null)
+                                    return Mono.error(new CommentsCantSetTopException("CommentsCantSetTopException"));
                                 existingPost.setTop(false);
                                 return postRepository.save(existingPost);
                             });
@@ -95,6 +97,8 @@ public class PostTopController {
                 })
             )
             .map(ResponseEntity::ok)
+            .onErrorResume(CommentsCantSetTopException.class,
+                e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .onErrorResume(UserCantSetTopException.class,
                 e -> Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).build()))
             .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
