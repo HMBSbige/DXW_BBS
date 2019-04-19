@@ -1105,7 +1105,7 @@ module.exports = "ul\r\n{\r\n    list-style-type: none;\r\n}\r\n/*# sourceMappin
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h2 style=\"text-align:center\">欢迎来到开花论坛</h2>\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>标题</span>\n          <span style=\"float:right\">开贴时间</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let toppost of topposts\">\n      <mat-card tabindex=\"0\" routerLink=\"/community/{{community}}/post/{{toppost.id}}\" style=\"background:rgb(99, 193, 252)\">\n        <mat-card-content>\n          <span>{{toppost.title}}</span>\n          <span style=\"float:right\">{{toppost.initTime}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <mat-divider></mat-divider>\n    <li *ngFor=\"let post of nowposts\">\n      <mat-card tabindex=\"0\" routerLink=\"/community/{{community}}/post/{{post.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{post.title}}</span>\n          <span style=\"float:right\">{{post.initTime}}</span>\n          <button mat-button *ngIf=\"isAdmin()\" (click)=\"topThePost(post)\">置顶</button>\n          <button mat-button *ngIf=\"this.editMode\" (click)=\"deletePost(post)\">删除</button>\n        </mat-card-content>\n      </mat-card>\n    </li>\n  </ul>\n  <mat-paginator color=\"primary\" [length]=\"totalPost\" [pageSize]=\"10\" (page)=\"pageEvent =changePage($event)\">\n    \n  </mat-paginator>\n  <div>\n    <button mat-raised-button color=\"primary\" routerLink=\"/community/{{community}}/pullpost\">发帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"startEditMode()\" *ngIf=\"isAdmin()\">删帖</button>\n  </div>\n  <hr />\n  <!--\n  <div>\n    <p>标题</p>\n    <input #postTitle />\n    <p>正文</p>\n    <textarea #postContent></textarea>\n    <button mat-raised-button color=\"primary\"\n      (click)=\"pullPost(postTitle.value,postContent.value);postTitle.value='';postContent.value=''\">发表新帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n  </div>\n  -->\n</div>\n"
+module.exports = "<div>\n  <h2 style=\"text-align:center\">欢迎来到开花论坛</h2>\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>标题</span>\n          <span style=\"float:right\">开贴时间</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let toppost of topposts\">\n      <mat-card tabindex=\"0\" routerLink=\"/community/{{community}}/post/{{toppost.id}}\" style=\"background:rgb(99, 193, 252)\">\n        <mat-card-content>\n          <span>{{toppost.title}}</span>\n          <span style=\"float:right\">{{toppost.initTime}}</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <mat-divider></mat-divider>\n    <li *ngFor=\"let post of nowposts\">\n      <mat-card tabindex=\"0\" routerLink=\"/community/{{community}}/post/{{post.id}}\" style=\"background:rgb(120, 196, 243)\">\n        <mat-card-content>\n          <span>{{post.title}}</span>\n          <span style=\"float:right\">{{post.initTime}}</span>\n          <button mat-button *ngIf=\"isAdmin()\" (click)=\"topThePost(post)\">置顶</button>\n          <button mat-button *ngIf=\"this.editMode\" (click)=\"deletePost(post)\">删除</button>\n        </mat-card-content>\n      </mat-card>\n    </li>\n  </ul>\n  <button *ngIf=\"nowPage>0\" (click)=\"prePage()\">上一页</button>\n  <button style=\"float:right\" (click)=\"nextPage()\">下一页</button>\n  <!-- <mat-paginator color=\"primary\" [length]=\"200\" [pageSize]=\"10\" (page)=\"pageEvent =changePage($event)\">\n  </mat-paginator> -->\n  <div>\n    <button mat-raised-button color=\"primary\" routerLink=\"/community/{{community}}/pullpost\">发帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"startEditMode()\" *ngIf=\"isAdmin()\">删帖</button>\n  </div>\n  <hr />\n  <!--\n  <div>\n    <p>标题</p>\n    <input #postTitle />\n    <p>正文</p>\n    <textarea #postContent></textarea>\n    <button mat-raised-button color=\"primary\"\n      (click)=\"pullPost(postTitle.value,postContent.value);postTitle.value='';postContent.value=''\">发表新帖</button>\n    <button mat-raised-button color=\"primary\" (click)=\"goBack()\">返回</button>\n  </div>\n  -->\n</div>\n"
 
 /***/ }),
 
@@ -1138,6 +1138,7 @@ var PostComponent = /** @class */ (function () {
         this.app = app;
     }
     PostComponent.prototype.ngOnInit = function () {
+        this.nowPage = 0;
         this.editMode = false;
         this.community = this.router.snapshot.paramMap.get('community');
         this.posts = [];
@@ -1148,6 +1149,16 @@ var PostComponent = /** @class */ (function () {
         //this.getPosted();
         //this.getTopposts();
         //console.log("我出生了");
+    };
+    PostComponent.prototype.nextPage = function () {
+        this.nowPage++;
+        this.sourceNowPost.close();
+        this.getSSENowPosts(this.nowPage);
+    };
+    PostComponent.prototype.prePage = function () {
+        this.nowPage--;
+        this.sourceNowPost.close();
+        this.getSSENowPosts(this.nowPage);
     };
     PostComponent.prototype.changePage = function (event) {
         this.sourceNowPost.close();
