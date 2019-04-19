@@ -1,3 +1,6 @@
+# 前端
+https://github.com/Frozen-Troll/bbs
+
 # API
 请自行替换 `http://127.0.0.1:8080`
 
