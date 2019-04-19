@@ -321,7 +321,7 @@ module.exports = "table {\r\n    width: 100%;\r\n    }\r\n/*# sourceMappingURL=d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <input #partname/>\n  <button mat-raised-button (click)=\"searchUsers(partname.value)\">搜索</button>\n</div>\n<div>\n    <table mat-table [dataSource]=\"users\" class=\"mat-elevation-z8\">\n\n        <!--- Note that these columns can be defined in any order.\n              The actual rendered columns are set as a property on the row definition\" -->\n      \n      \n        <!-- Name Column -->\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef> 用户名 </th>\n          <td mat-cell *matCellDef=\"let element\"> {{element.username}} </td>\n        </ng-container>\n      \n        <!-- Weight Column -->\n        <ng-container matColumnDef=\"id\">\n          <th mat-header-cell *matHeaderCellDef> ID </th>\n          <td mat-cell *matCellDef=\"let element\"> {{element.enable}} </td>\n        </ng-container>\n      \n        <!-- Symbol Column -->\n        <ng-container matColumnDef=\"ban\">\n          <th mat-header-cell *matHeaderCellDef> 封禁 </th>\n          <td mat-cell *matCellDef=\"let element\"> \n            <button mat-button (click)=\"banUser(element.username)\">封禁/解封</button>\n          </td>\n        </ng-container>\n      \n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n      </table>\n</div>"
+module.exports = "<div>\n  <input #partname/>\n  <button mat-raised-button (click)=\"searchUsers(partname.value)\">搜索</button>\n</div>\n<div>\n    <table mat-table [dataSource]=\"users\" class=\"mat-elevation-z8\">\n\n        <!--- Note that these columns can be defined in any order.\n              The actual rendered columns are set as a property on the row definition\" -->\n      \n      \n        <!-- Name Column -->\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef> 用户名 </th>\n          <td mat-cell *matCellDef=\"let element\"> {{element.username}} </td>\n        </ng-container>\n      \n        <!-- Symbol Column -->\n        <ng-container matColumnDef=\"ban\">\n          <th mat-header-cell *matHeaderCellDef> 封禁 </th>\n          <td mat-cell *matCellDef=\"let element\"> \n            <button mat-button (click)=\"banUser(element.username)\">封禁/解封</button>\n          </td>\n        </ng-container>\n      \n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n      </table>\n</div>"
 
 /***/ }),
 
@@ -354,7 +354,7 @@ var BackgroundComponent = /** @class */ (function () {
     BackgroundComponent.prototype.searchUsers = function (name) {
         var _this = this;
         name = name.trim();
-        var searchUserSource = new EventSource('/search/user/' + name);
+        var searchUserSource = new EventSource('/search/users/' + name);
         var user = new _model_UserModel__WEBPACK_IMPORTED_MODULE_2__["User"];
         var flag = true;
         searchUserSource.addEventListener('message', function (response) {
@@ -1531,16 +1531,7 @@ var RegisterComponent = /** @class */ (function () {
         if (!username) {
             return;
         }
-        this.myhttp.sendRegister({ username: username, password: password }).subscribe(function (token) {
-            console.log(token); //test
-            localStorage.setItem('jwt', token.token);
-            _this.app.islogin = true;
-            _this.myhttp.getUser(username).subscribe(function (user) {
-                _this.app.user = user;
-                console.log(_this.app.user.roles);
-                console.log(_this.app.user.roles[0]);
-                localStorage.setItem('role', _this.app.user.roles[0]);
-            });
+        this.myhttp.sendRegister({ username: username, password: password }).subscribe(function () {
             alert("注册成功");
             _this.goBack();
         });
