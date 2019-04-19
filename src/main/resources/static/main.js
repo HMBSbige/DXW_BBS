@@ -321,7 +321,7 @@ module.exports = "table {\r\n    width: 100%;\r\n    }\r\n/*# sourceMappingURL=d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <input #partname/>\n  <button mat-raised-button (click)=\"searchUsers(partname.value)\">搜索</button>\n</div>\n<div>\n    <table mat-table [dataSource]=\"users\" class=\"mat-elevation-z8\">\n\n        <!--- Note that these columns can be defined in any order.\n              The actual rendered columns are set as a property on the row definition\" -->\n      \n      \n        <!-- Name Column -->\n        <ng-container matColumnDef=\"username\">\n          <th mat-header-cell *matHeaderCellDef> 用户名 </th>\n          <td mat-cell *matCellDef=\"let element\"> {{element.username}} </td>\n        </ng-container>\n      \n        <!-- Symbol Column -->\n        <ng-container matColumnDef=\"ban\">\n          <th mat-header-cell *matHeaderCellDef> 封禁 </th>\n          <td mat-cell *matCellDef=\"let element\"> \n            <button mat-button (click)=\"banUser(element.username)\">封禁/解封</button>\n          </td>\n        </ng-container>\n      \n        <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n        <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n      </table>\n</div>"
+module.exports = "<div>\n  <input #partname />\n  <button mat-raised-button (click)=\"searchUsers(partname.value)\">搜索</button>\n</div>\n<div>\n  <ul>\n    <li>\n      <mat-card style=\"background:rgb(27, 158, 240)\">\n        <mat-card-content>\n          <span>用户名</span>\n          <span style=\"float:right\">封禁</span>\n        </mat-card-content>\n      </mat-card>\n    </li>\n    <li *ngFor=\"let user of users\">\n        <mat-card tabindex=\"0\" style=\"background:rgb(99, 193, 252)\">\n          <mat-card-content>\n            <span>{{user.username}}</span>\n            <span style=\"float:right\"><button mat-button (click)=\"banUser(user.username)\">封禁/解封</button></span>\n          </mat-card-content>\n        </mat-card>\n      </li>\n  </ul>\n  <!--\n  <table mat-table [dataSource]=\"users\" class=\"mat-elevation-z8\">\n\n    - Note that these columns can be defined in any order.\n              The actual rendered columns are set as a property on the row definition\" -->\n\n              <!--\n\n    <ng-container matColumnDef=\"username\">\n      <th mat-header-cell *matHeaderCellDef> 用户名 </th>\n      <td mat-cell *matCellDef=\"let element\"> {{element.username}} </td>\n    </ng-container>\n\n\n    <ng-container matColumnDef=\"ban\">\n      <th mat-header-cell *matHeaderCellDef> 封禁 </th>\n      <td mat-cell *matCellDef=\"let element\">\n        <button mat-button (click)=\"banUser(element.username)\">封禁/解封</button>\n      </td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n  </table>\n-->\n</div>\n"
 
 /***/ }),
 
@@ -1044,6 +1044,12 @@ var PostService = /** @class */ (function () {
     };
     //删帖
     PostService.prototype.deletePost = function (post) {
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('jwt')
+            })
+        };
         var url = this.postsUrl + "/" + post.id;
         return this.http.delete(url, httpOptions);
     };
