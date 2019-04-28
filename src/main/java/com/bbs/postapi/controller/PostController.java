@@ -23,6 +23,8 @@ import com.bbs.postapi.exception.UserIdNotMatchException;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+    // can not be done without
+    // https://auth0.com/blog/introduction-getting-started-with-spring-webflux-api/
 
     @Autowired
     private PostRepository postRepository;

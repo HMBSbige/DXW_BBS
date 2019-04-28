@@ -24,6 +24,8 @@ import javax.validation.constraints.Null;
 
 @RestController
 public class AuthenticationController {
+    // can not be done without
+    // https://medium.com/@ard333/authentication-and-authorization-using-jwt-on-spring-webflux-29b81f813e78
 
     @Autowired
     private JWTUtil jwtUtil;
