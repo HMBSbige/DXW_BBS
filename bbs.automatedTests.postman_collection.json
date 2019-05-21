@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "b9ff34b6-23cd-4560-b15c-e649a911c148",
+		"name": "bbs.automatedTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "posts get all hot posts anonymous",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ccb0fcc2-3d93-4759-b11f-92b57aafd5fe",
+						"exec": [
+							"function JSONLength(obj) {\r",
+							"    var size = 0, key;\r",
+							"    for (key in obj) {\r",
+							"        if (obj.hasOwnProperty(key)) size++;\r",
+							"    }\r",
+							"    return size;\r",
+							"}\r",
+							"\r",
+							"var data = pm.response.json()\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"response count\"] = JSONLength(data) === 2;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/stream+json",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/hot",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"hot"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
+						"exec": [
+							"// var data = pm.response.json();\r",
+							"// pm.environment.set(“token”, data.token);\r",
+							"var token = pm.response.json()[\"token\"];\r",
+							"pm.environment.set(\"TOKEN\", token);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"token is not null\"] = token !== null;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"user1\",\n\t\"password\": \"user1\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
