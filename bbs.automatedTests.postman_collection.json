@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "b9ff34b6-23cd-4560-b15c-e649a911c148",
+		"_postman_id": "87595937-3ef2-4828-81a4-1dd59ddf2351",
 		"name": "bbs.automatedTests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "posts get all hot posts anonymous",
+			"name": "get all hot posts anonymous",
 			"event": [
 				{
 					"listen": "test",
@@ -69,7 +69,7 @@
 			"response": []
 		},
 		{
-			"name": "login user",
+			"name": "login user1",
 			"event": [
 				{
 					"listen": "test",
@@ -79,7 +79,7 @@
 							"// var data = pm.response.json();\r",
 							"// pm.environment.set(“token”, data.token);\r",
 							"var token = pm.response.json()[\"token\"];\r",
-							"pm.environment.set(\"TOKEN\", token);\r",
+							"pm.environment.set(\"TOKEN1\", token);\r",
 							"\r",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
 							"tests[\"token is not null\"] = token !== null;"
@@ -94,8 +94,8 @@
 					{
 						"key": "Content-Type",
 						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"type": "text",
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -114,6 +114,238 @@
 					"port": "8080",
 					"path": [
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "posts head",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a0c2d69-d8da-48c9-a3e4-b4640bbbd6ab",
+						"exec": [
+							"var user_post_id = pm.response.json()[\"id\"];\r",
+							"pm.environment.set(\"user_post_id\", user_post_id);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"user_post_id is not null\"] = user_post_id !== null;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"something\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
+						"exec": [
+							"// var data = pm.response.json();\r",
+							"// pm.environment.set(“token”, data.token);\r",
+							"var token = pm.response.json()[\"token\"];\r",
+							"pm.environment.set(\"TOKEN2\", token);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"token is not null\"] = token !== null;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"user2\",\n\t\"password\": \"user2\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comment first user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33eb370b-9fdc-4fbc-a33b-f5ca62baf0bb",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"pm.environment.set(\"user2_comment_id\", data[\"id\"]);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r",
+							"tests[\"user2_comment_content is OK\"] = data[\"content\"] === \"comment on something\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN2}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"comment on something\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/{{user_post_id}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"{{user_post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comment second user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8e1072a5-b164-4367-b789-8687e42a09b5",
+						"exec": [
+							"var data = pm.response.json();\r",
+							"pm.environment.set(\"user1_comment_id\", data[\"id\"]);\r",
+							"\r",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"tests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r",
+							"tests[\"user1_comment_content is OK\"] = data[\"content\"] === \"comment on something again\";"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN1}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"comment on something again\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/{{user_post_id}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"{{user_post_id}}"
 					]
 				}
 			},
