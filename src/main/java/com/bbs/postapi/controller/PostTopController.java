@@ -40,9 +40,8 @@ public class PostTopController {
             .findTopAllPagination(community, PageRequest.of(page.orElse(0), 10));
     }
 
-    @PostMapping("{id}")
-    public Mono<ResponseEntity<Post>> setTopPost(@PathVariable(value = "id") String id,
-                                                 @RequestBody Post post, Mono<Principal> principal) {
+    @PostMapping
+    public Mono<ResponseEntity<Post>> setTopPost(@RequestBody Post post, Mono<Principal> principal) {
         return principal
             .map(Principal::getName)
             .flatMap(name ->communityRepository
@@ -51,16 +50,15 @@ public class PostTopController {
                     HashSet<String> managers = community.getManagers();
                     if(managers.contains(name)){
                         return postRepository
-                            .findById(id)
+                            .findById(post.getId())
                             .flatMap(existingPost -> {
                                 if(existingPost.getParentId()!=null)
                                     return Mono.error(new CommentsCantSetTopException("CommentsCantSetTopException"));
                                 existingPost.setTop(true);
                                 return postRepository.save(existingPost);
                             });
-                    }else{
+                    }else
                         return Mono.error(new UserCantSetTopException("UserCantSetTopException"));
-                    }
                 })
             )
             .map(ResponseEntity::ok)

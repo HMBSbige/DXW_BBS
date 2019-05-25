@@ -50,6 +50,7 @@ public class WebSecurityConfig {
             .pathMatchers("/search/users/*").permitAll()
             .pathMatchers("/search/posts/*").permitAll()
             .pathMatchers("/search/comments/*").permitAll()
+            .pathMatchers("/postsRedis/*").permitAll()
             .pathMatchers("/posts").permitAll()
             .pathMatchers("/posts/*").permitAll()
             .pathMatchers("/posts/top/*").permitAll()

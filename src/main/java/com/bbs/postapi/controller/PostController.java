@@ -21,6 +21,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
+    // can not be done without
+    // https://auth0.com/blog/introduction-getting-started-with-spring-webflux-api/
 
     @Autowired
     private PostRepository postRepository;
@@ -60,7 +62,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.isLocked() == true) {
+                    if (user.isLocked()) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);
