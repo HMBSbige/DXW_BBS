@@ -612,7 +612,7 @@
 				{
 					"id": "fab9d409-ddf1-47b7-8e18-702990d8e52d",
 					"name": "posts setTop",
-					"url": "http://127.0.0.1:8080/posts/top/5cb1f69f80a35f5b60a53bb2",
+					"url": "http://127.0.0.1:8080/posts/top",
 					"description": "",
 					"data": [],
 					"dataMode": "raw",
@@ -646,7 +646,7 @@
 						"token": "{{TOKEN_admin}}"
 					},
 					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
-					"rawModeData": "{\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}",
+					"rawModeData": "{\n\t\"id\": \"{{postid_test}}\",\n    \"community\": \"5cb1f17c80a35f37407791ee\"\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				}
@@ -666,7 +666,8 @@
 				"9ae10103-a78e-4a8e-825f-283ef28b0f9c",
 				"0ca18a7e-0abc-487c-87f8-a37954f91bba",
 				"244c166c-9ede-4a23-ba35-000418b19e36",
-				"37db0bab-8c6b-4678-a31a-b70e54f6f0e4"
+				"37db0bab-8c6b-4678-a31a-b70e54f6f0e4",
+				"3dd42e20-e658-4e44-9786-cb432048b5ba"
 			],
 			"folders_order": [],
 			"folders": [],
@@ -849,6 +850,47 @@
 					},
 					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3dd42e20-e658-4e44-9786-cb432048b5ba",
+					"name": "setTop",
+					"url": "http://127.0.0.1:8080/posts/top",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"bearer": [
+							{
+								"key": "token",
+								"type": "string",
+								"value": "{{TOKEN_admin}}"
+							}
+						],
+						"type": "bearer"
+					},
+					"events": [],
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN_admin}}"
+					},
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+					"rawModeData": "{\n\t\"id\": {{user_post_id}},\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}",
+					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				},
 				{
@@ -1221,11 +1263,16 @@
 					"key": "postid_test",
 					"value": "",
 					"enabled": true
+				},
+				{
+					"key": "TOKEN_admin",
+					"value": "",
+					"enabled": true
 				}
 			]
 		},
 		{
-			"id": "289c058d-b9d8-4020-b902-2b8685fcb91d",
+			"id": "3724c7d2-5378-44a3-88bc-00ff3c7415f1",
 			"name": "My Workspace - globals",
 			"values": []
 		}

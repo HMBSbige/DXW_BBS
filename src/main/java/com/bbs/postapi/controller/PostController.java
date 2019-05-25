@@ -64,7 +64,7 @@ public class PostController {
             .flatMap(username -> userRepository
                 .findByName(username)
                 .flatMap(user -> {
-                    if (user.isLocked() == true) {
+                    if (user.isLocked()) {
                         return Mono.error(new UserDisabledException("UserDisabledException"));
                     } else {
                         return Mono.just(username);

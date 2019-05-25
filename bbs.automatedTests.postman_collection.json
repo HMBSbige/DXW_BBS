@@ -414,6 +414,117 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "setTop",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN_admin}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"{{user_post_id}}\",\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/top",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"top"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all top posts anonymous",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9113eed-3895-4ea7-985e-60dee32077f2",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+							"});\r",
+							"pm.test(\"Content-Type is text/event-stream\", function () {\r",
+							"    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r",
+							"});\r",
+							"pm.test(\"response has 1 items\", function () {\r",
+							"    // 1 top post with 1 lines of data and 2 lines of blank\r",
+							"    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/stream+json",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/top?community=5cb1f17c80a35f37407791ee",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"top"
+					],
+					"query": [
+						{
+							"key": "community",
+							"value": "5cb1f17c80a35f37407791ee"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
