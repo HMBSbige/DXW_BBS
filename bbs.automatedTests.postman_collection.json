@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "87595937-3ef2-4828-81a4-1dd59ddf2351",
+		"_postman_id": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 		"name": "bbs.automatedTests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -24,7 +24,7 @@
 							"var data = pm.response.json()\r",
 							"\r",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-							"tests[\"response count\"] = JSONLength(data) === 2;"
+							"tests[\"response count\"] = JSONLength(data) === 3;"
 						],
 						"type": "text/javascript"
 					}
@@ -130,7 +130,9 @@
 							"var user_post_id = pm.response.json()[\"id\"];\r",
 							"pm.environment.set(\"user_post_id\", user_post_id);\r",
 							"\r",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"pm.test(\"Status code is 2XX\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+							"});\r",
 							"tests[\"user_post_id is not null\"] = user_post_id !== null;"
 						],
 						"type": "text/javascript"
@@ -159,7 +161,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"content\": \"something\"\r\n}"
+					"raw": "{\r\n    \"content\": \"something\",\r\n    \"community\": \"5cb1f17c80a35f37407791ee\"\r\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8080/posts",
@@ -240,9 +242,13 @@
 							"var data = pm.response.json();\r",
 							"pm.environment.set(\"user2_comment_id\", data[\"id\"]);\r",
 							"\r",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"pm.test(\"Status code is 2XX\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+							"});\r",
 							"tests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r",
-							"tests[\"user2_comment_content is OK\"] = data[\"content\"] === \"comment on something\";"
+							"pm.test(\"user2_comment_content is OK\", function () {\r",
+							"    pm.expect(data[\"content\"]).to.equal(\"comment on something\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -301,9 +307,13 @@
 							"var data = pm.response.json();\r",
 							"pm.environment.set(\"user1_comment_id\", data[\"id\"]);\r",
 							"\r",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							"pm.test(\"Status code is 2XX\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+							"});\r",
 							"tests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r",
-							"tests[\"user1_comment_content is OK\"] = data[\"content\"] === \"comment on something again\";"
+							"pm.test(\"user1_comment_content is OK\", function () {\r",
+							"    pm.expect(data[\"content\"]).to.equal(\"comment on something again\");\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -333,6 +343,60 @@
 					"mode": "raw",
 					"raw": "{\r\n    \"content\": \"comment on something again\"\r\n}"
 				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/posts/{{user_post_id}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"{{user_post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a9cab1d0-ccbe-4bbf-83d8-f09fb803273b",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+							"});\r",
+							"pm.test(\"Content-Type is text/event-stream\", function () {\r",
+							"    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r",
+							"});\r",
+							"pm.test(\"response has 2 items\", function () {\r",
+							"    // 2 comments with 2 lines of data and 3 lines of blank\r",
+							"    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(5);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
 				"url": {
 					"raw": "http://127.0.0.1:8080/posts/{{user_post_id}}",
 					"protocol": "http",

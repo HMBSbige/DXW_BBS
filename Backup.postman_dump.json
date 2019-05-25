@@ -2,304 +2,24 @@
 	"version": 1,
 	"collections": [
 		{
-			"id": "2e174d4b-df6b-4604-8947-53a230e82729",
-			"name": "bbs.community",
-			"description": "",
-			"auth": null,
-			"events": null,
-			"variables": [],
-			"order": [
-				"908515a5-f90b-4bee-ab27-e3e39510590c",
-				"d628ad56-032e-45d5-8a5e-0c6ea2182381",
-				"bf2a4fe6-703a-4a4d-b752-695507450a14"
-			],
-			"folders_order": [],
-			"folders": [],
-			"requests": [
-				{
-					"id": "908515a5-f90b-4bee-ab27-e3e39510590c",
-					"name": "communities test update",
-					"url": "http://127.0.0.1:8080/communities/{{community_test_id}}",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "PUT",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN}}",
-								"type": "string"
-							}
-						]
-					},
-					"events": null,
-					"folder": null,
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN}}"
-					},
-					"collectionId": "2e174d4b-df6b-4604-8947-53a230e82729",
-					"rawModeData": "{\n\t\"managers\": [\"user\"]\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "bf2a4fe6-703a-4a4d-b752-695507450a14",
-					"name": "communities all",
-					"url": "http://127.0.0.1:8080/communities",
-					"description": "",
-					"data": null,
-					"dataMode": null,
-					"headerData": [],
-					"method": "GET",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": null,
-					"folder": null,
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "2e174d4b-df6b-4604-8947-53a230e82729",
-					"headers": "",
-					"pathVariables": {}
-				},
-				{
-					"id": "d628ad56-032e-45d5-8a5e-0c6ea2182381",
-					"name": "communities test",
-					"url": "http://127.0.0.1:8080/communities",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"value": "application/json",
-							"description": "",
-							"type": "text"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN}}",
-								"type": "string"
-							}
-						]
-					},
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ac80d427-6d8f-4919-a085-3b0803a61b97",
-								"exec": [
-									"var id = pm.response.json()[\"id\"];\r",
-									"pm.environment.set(\"community_test_id\", id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var id = pm.response.json()[\"id\"];\r\npm.environment.set(\"community_test_id\", id);",
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN}}"
-					},
-					"collectionId": "2e174d4b-df6b-4604-8947-53a230e82729",
-					"rawModeData": "{\n\t\"name\": \"test\",\n\t\"managers\": [\"admin\"]\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				}
-			]
-		},
-		{
-			"id": "48a89026-230b-4a3b-ab52-8125385d5713",
+			"id": "037d01ab-8008-4120-ab37-3873392a604c",
 			"name": "bbs.user",
 			"description": "",
 			"auth": null,
 			"events": null,
 			"variables": [],
 			"order": [
-				"2d802b63-9181-4d09-a712-cd9fb3215d1c",
-				"2b6e7932-3e43-4931-9874-eb5d2c258024",
-				"20e2a69c-0b35-447a-90fb-036112ea3fcb",
-				"9eca24d2-c0dc-446d-98e7-17c2fbf011ac",
-				"11c3f045-cb4f-4c67-aaa1-2c890a982994"
+				"36fb43e9-a179-4a4a-a245-7a563f2ceee5",
+				"287712d2-5797-499a-befa-6982ac713303",
+				"88f11b55-ee93-42e7-bad9-11f1da7ac6d6",
+				"0a802cac-505a-4b33-862d-a13eca0f540c",
+				"fcfcf483-be70-4461-a952-f4664e2e4dd5"
 			],
 			"folders_order": [],
 			"folders": [],
 			"requests": [
 				{
-					"id": "11c3f045-cb4f-4c67-aaa1-2c890a982994",
-					"name": "register test",
-					"url": "http://127.0.0.1:8080/signup",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"value": "application/json",
-							"description": "",
-							"type": "text"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": null,
-					"folder": null,
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "48a89026-230b-4a3b-ab52-8125385d5713",
-					"rawModeData": "{\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "20e2a69c-0b35-447a-90fb-036112ea3fcb",
-					"name": "login admin",
-					"url": "http://127.0.0.1:8080/login",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
-								"exec": [
-									"var token = pm.response.json()[\"token\"];\r",
-									"pm.environment.set(\"TOKEN_admin\", token);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN_admin\", token);",
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "48a89026-230b-4a3b-ab52-8125385d5713",
-					"rawModeData": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "2b6e7932-3e43-4931-9874-eb5d2c258024",
-					"name": "login test",
-					"url": "http://127.0.0.1:8080/login",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
-								"exec": [
-									"var token = pm.response.json()[\"token\"];\r",
-									"pm.environment.set(\"TOKEN_test\", token);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN_test\", token);",
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "48a89026-230b-4a3b-ab52-8125385d5713",
-					"rawModeData": "{\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "2d802b63-9181-4d09-a712-cd9fb3215d1c",
-					"name": "http://127.0.0.1:8080/resource/user",
-					"url": "http://127.0.0.1:8080/resource/anonymous",
-					"description": "",
-					"data": null,
-					"dataMode": null,
-					"headerData": [],
-					"method": "GET",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNTU0NTk0OTQ5LCJpYXQiOjE1NTQ1NjYxNDl9.Vk2YJVyI8kWPBZlBwUBNMfRmEBpOLM3qNE221cpKO3OF3tkf47Am4ReULu7sDgpHP7ohKrHgRjZRCp9sZ4E9Xw",
-								"type": "string"
-							}
-						]
-					},
-					"events": null,
-					"folder": null,
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNTU0NTk0OTQ5LCJpYXQiOjE1NTQ1NjYxNDl9.Vk2YJVyI8kWPBZlBwUBNMfRmEBpOLM3qNE221cpKO3OF3tkf47Am4ReULu7sDgpHP7ohKrHgRjZRCp9sZ4E9Xw"
-					},
-					"collectionId": "48a89026-230b-4a3b-ab52-8125385d5713",
-					"headers": "",
-					"pathVariables": {}
-				},
-				{
-					"id": "9eca24d2-c0dc-446d-98e7-17c2fbf011ac",
+					"id": "0a802cac-505a-4b33-862d-a13eca0f540c",
 					"name": "login user",
 					"url": "http://127.0.0.1:8080/login",
 					"description": "",
@@ -341,39 +61,133 @@
 					"tests": "// var data = pm.response.json();\r\n// pm.environment.set(“token”, data.token);\r\nvar token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN\", token);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"token is not null\"] = token !== null;",
 					"currentHelper": null,
 					"helperAttributes": null,
-					"collectionId": "48a89026-230b-4a3b-ab52-8125385d5713",
+					"collectionId": "037d01ab-8008-4120-ab37-3873392a604c",
 					"rawModeData": "{\n\t\"username\": \"user1\",\n\t\"password\": \"user1\"\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
-				}
-			]
-		},
-		{
-			"id": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-			"name": "bbs.post",
-			"description": "",
-			"auth": null,
-			"events": null,
-			"variables": [],
-			"order": [
-				"a7b96172-e1c3-4601-a4b0-31f7280ff371",
-				"e542a641-c8a6-45f4-acb0-8db0e3045b6b",
-				"95dbe757-f3dc-45da-a9ba-f78a30ecc2f7",
-				"e7c09c6c-0969-4947-a987-6bfd95493f24",
-				"381257d9-a03c-4209-a90d-d0c2230477ab",
-				"92b1055d-edba-4b36-b841-102b7886673c",
-				"65922c3e-c098-47ea-a466-3811e353c11e",
-				"c5e0d792-c564-4950-9563-0f5d06778442",
-				"0116d2b3-34c6-45e8-aa18-bf5ae91792d9",
-				"423ded81-c253-4f39-b788-8dc1bd456179"
-			],
-			"folders_order": [],
-			"folders": [],
-			"requests": [
+				},
 				{
-					"id": "0116d2b3-34c6-45e8-aa18-bf5ae91792d9",
-					"name": "postRedis",
-					"url": "http://127.0.0.1:8080/postsRedis",
+					"id": "287712d2-5797-499a-befa-6982ac713303",
+					"name": "login test",
+					"url": "http://127.0.0.1:8080/login",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
+								"exec": [
+									"var token = pm.response.json()[\"token\"];\r",
+									"pm.environment.set(\"TOKEN_test\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "var token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN_test\", token);",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "037d01ab-8008-4120-ab37-3873392a604c",
+					"rawModeData": "{\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "36fb43e9-a179-4a4a-a245-7a563f2ceee5",
+					"name": "http://127.0.0.1:8080/resource/user",
+					"url": "http://127.0.0.1:8080/resource/anonymous",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNTU0NTk0OTQ5LCJpYXQiOjE1NTQ1NjYxNDl9.Vk2YJVyI8kWPBZlBwUBNMfRmEBpOLM3qNE221cpKO3OF3tkf47Am4ReULu7sDgpHP7ohKrHgRjZRCp9sZ4E9Xw",
+								"type": "string"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNTU0NTk0OTQ5LCJpYXQiOjE1NTQ1NjYxNDl9.Vk2YJVyI8kWPBZlBwUBNMfRmEBpOLM3qNE221cpKO3OF3tkf47Am4ReULu7sDgpHP7ohKrHgRjZRCp9sZ4E9Xw"
+					},
+					"collectionId": "037d01ab-8008-4120-ab37-3873392a604c",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "88f11b55-ee93-42e7-bad9-11f1da7ac6d6",
+					"name": "login admin",
+					"url": "http://127.0.0.1:8080/login",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
+								"exec": [
+									"var token = pm.response.json()[\"token\"];\r",
+									"pm.environment.set(\"TOKEN_admin\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "var token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN_admin\", token);",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "037d01ab-8008-4120-ab37-3873392a604c",
+					"rawModeData": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "fcfcf483-be70-4461-a952-f4664e2e4dd5",
+					"name": "register test",
+					"url": "http://127.0.0.1:8080/signup",
 					"description": "",
 					"data": [],
 					"dataMode": "raw",
@@ -390,117 +204,41 @@
 					"pathVariableData": [],
 					"queryParams": [],
 					"auth": null,
-					"events": [],
+					"events": null,
 					"folder": null,
 					"currentHelper": null,
 					"helperAttributes": null,
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"rawModeData": "{\n\t\"id\": 1,\n\t\"content\": \"sth\"\n}",
+					"collectionId": "037d01ab-8008-4120-ab37-3873392a604c",
+					"rawModeData": "{\n\t\"username\": \"test\",\n\t\"password\": \"test\"\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
-				},
+				}
+			]
+		},
+		{
+			"id": "8c000778-6519-42bc-89db-33e02304ddb2",
+			"name": "bbs.post",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"eecde980-0693-4472-a786-aca55871477d",
+				"2044163a-159d-48fd-a3ae-638bbf885e6d",
+				"6b2214e2-66ec-4014-9c03-e4f38257f227",
+				"a186772a-063c-4ce2-b7a7-66e784a3c14a",
+				"45760e14-dab8-419e-bf11-cea753e2eb91",
+				"123b7341-3311-4a7f-8a0d-479701793aad",
+				"e02d3941-e367-4ca3-975a-e8b448c65cc4",
+				"fab9d409-ddf1-47b7-8e18-702990d8e52d",
+				"658078c9-ee30-4f77-ae2f-80d5b4122b4f",
+				"e4ec53ec-ce38-419f-8b8b-1331ae41f9da"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
 				{
-					"id": "381257d9-a03c-4209-a90d-d0c2230477ab",
-					"name": "http://127.0.0.1:8080/posts",
-					"url": "http://127.0.0.1:8080/posts/5cb1cd3b80a35f4a28c06c83",
-					"description": "",
-					"data": null,
-					"dataMode": null,
-					"headerData": [],
-					"method": "DELETE",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN}}",
-								"type": "string"
-							}
-						]
-					},
-					"events": null,
-					"folder": null,
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN}}"
-					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"headers": "",
-					"pathVariables": {}
-				},
-				{
-					"id": "423ded81-c253-4f39-b788-8dc1bd456179",
-					"name": "postRedis Copy",
-					"url": "http://127.0.0.1:8080/postsRedis/1",
-					"description": "",
-					"data": null,
-					"dataMode": null,
-					"headerData": [],
-					"method": "GET",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": [],
-					"folder": null,
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"headers": "",
-					"pathVariables": {}
-				},
-				{
-					"id": "65922c3e-c098-47ea-a466-3811e353c11e",
-					"name": "posts get all top posts anonymous",
-					"url": "http://127.0.0.1:8080/posts/top?community=5cb1f17c80a35f37407791ee",
-					"description": "",
-					"data": null,
-					"dataMode": null,
-					"headerData": [
-						{
-							"description": "",
-							"enabled": false,
-							"key": "Accept",
-							"type": "text",
-							"value": "application/stream+json"
-						}
-					],
-					"method": "GET",
-					"pathVariableData": [],
-					"queryParams": [
-						{
-							"key": "community",
-							"value": "5cb1f17c80a35f37407791ee",
-							"equals": true,
-							"description": "",
-							"enabled": true
-						}
-					],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "",
-								"type": "string"
-							}
-						]
-					},
-					"events": null,
-					"folder": null,
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": ""
-					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"headers": "//Accept: application/stream+json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "92b1055d-edba-4b36-b841-102b7886673c",
+					"id": "123b7341-3311-4a7f-8a0d-479701793aad",
 					"name": "posts get all posts anonymous",
 					"url": "http://127.0.0.1:8080/posts?page=0&community=5cb1f17c80a35f37407791ee",
 					"description": "",
@@ -550,12 +288,113 @@
 						"id": "bearer",
 						"token": ""
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
 					"headers": "//Accept: application/stream+json\n",
 					"pathVariables": {}
 				},
 				{
-					"id": "95dbe757-f3dc-45da-a9ba-f78a30ecc2f7",
+					"id": "2044163a-159d-48fd-a3ae-638bbf885e6d",
+					"name": "posts first",
+					"url": "http://127.0.0.1:8080/posts/{{postid_test}}",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"rawModeData": "{\r\n    \"content\": \"comment on something\"\r\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "45760e14-dab8-419e-bf11-cea753e2eb91",
+					"name": "http://127.0.0.1:8080/posts",
+					"url": "http://127.0.0.1:8080/posts/5cb1cd3b80a35f4a28c06c83",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"type": "string"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "658078c9-ee30-4f77-ae2f-80d5b4122b4f",
+					"name": "postRedis",
+					"url": "http://127.0.0.1:8080/postsRedis",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"rawModeData": "{\n\t\"id\": 1,\n\t\"content\": \"sth\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "6b2214e2-66ec-4014-9c03-e4f38257f227",
 					"name": "posts second",
 					"url": "http://127.0.0.1:8080/posts/{{postid_test}}",
 					"description": "",
@@ -578,7 +417,109 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "{{TOKEN_test}}",
+								"value": "{{TOKEN}}"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"rawModeData": "{\r\n    \"content\": \"comment on something twice\"\r\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "a186772a-063c-4ce2-b7a7-66e784a3c14a",
+					"name": "posts get all comments",
+					"url": "http://127.0.0.1:8080/posts/{{postid_test}}",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "",
+								"type": "string"
+							}
+						]
+					},
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5d4f21ff-5c58-4f7f-94da-680ac568e76e",
+								"exec": [
+									"pm.test(\"Successful GET request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+									"});",
+									"pm.test(\"Content-Type is text/event-stream\", function () {",
+									"    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";",
+									"});",
+									"pm.test(\"response has 2 items\", function () {",
+									"    // 2 comments with 2 lines of data and 3 lines of blank",
+									"    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(5);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "pm.test(\"Successful GET request\", function () {\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\n});\npm.test(\"Content-Type is text/event-stream\", function () {\n    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\n});\npm.test(\"response has 2 items\", function () {\n    // 2 comments with 2 lines of data and 3 lines of blank\n    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(5);\n});",
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": ""
+					},
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "e02d3941-e367-4ca3-975a-e8b448c65cc4",
+					"name": "posts get all top posts anonymous",
+					"url": "http://127.0.0.1:8080/posts/top?community=5cb1f17c80a35f37407791ee",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [
+						{
+							"description": "",
+							"enabled": false,
+							"key": "Accept",
+							"type": "text",
+							"value": "application/stream+json"
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "community",
+							"value": "5cb1f17c80a35f37407791ee",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "",
 								"type": "string"
 							}
 						]
@@ -588,15 +529,34 @@
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
-						"token": "{{TOKEN_test}}"
+						"token": ""
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"rawModeData": "{\r\n    \"content\": \"comment on something twice\"\r\n}",
-					"headers": "Content-Type: application/json\n",
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"headers": "//Accept: application/stream+json\n",
 					"pathVariables": {}
 				},
 				{
-					"id": "a7b96172-e1c3-4601-a4b0-31f7280ff371",
+					"id": "e4ec53ec-ce38-419f-8b8b-1331ae41f9da",
+					"name": "postRedis Copy",
+					"url": "http://127.0.0.1:8080/postsRedis/1",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "eecde980-0693-4472-a786-aca55871477d",
 					"name": "posts head",
 					"url": "http://127.0.0.1:8080/posts",
 					"description": "",
@@ -619,8 +579,7 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "{{TOKEN_test}}",
-								"type": "string"
+								"value": "{{TOKEN}}"
 							}
 						]
 					},
@@ -643,15 +602,15 @@
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
-						"token": "{{TOKEN_test}}"
+						"token": "{{TOKEN}}"
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
-					"rawModeData": "{\r\n    \"content\": \"something\"\r\n}",
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
+					"rawModeData": "{\r\n    \"content\": \"something\",\r\n    \"community\": \"5cb1f17c80a35f37407791ee\"\r\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				},
 				{
-					"id": "c5e0d792-c564-4950-9563-0f5d06778442",
+					"id": "fab9d409-ddf1-47b7-8e18-702990d8e52d",
 					"name": "posts setTop",
 					"url": "http://127.0.0.1:8080/posts/top/5cb1f69f80a35f5b60a53bb2",
 					"description": "",
@@ -686,25 +645,46 @@
 						"id": "bearer",
 						"token": "{{TOKEN_admin}}"
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
+					"collectionId": "8c000778-6519-42bc-89db-33e02304ddb2",
 					"rawModeData": "{\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
-				},
+				}
+			]
+		},
+		{
+			"id": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+			"name": "bbs.automatedTests",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"55cc150f-819f-4df2-914f-58533b4ffad0",
+				"a41b14fb-e55b-418b-802a-40804c769913",
+				"45efe231-f8c8-43d7-9fa6-73e1479f1053",
+				"9ae10103-a78e-4a8e-825f-283ef28b0f9c",
+				"0ca18a7e-0abc-487c-87f8-a37954f91bba",
+				"244c166c-9ede-4a23-ba35-000418b19e36",
+				"37db0bab-8c6b-4678-a31a-b70e54f6f0e4"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
 				{
-					"id": "e542a641-c8a6-45f4-acb0-8db0e3045b6b",
-					"name": "posts first",
-					"url": "http://127.0.0.1:8080/posts/{{postid_test}}",
+					"id": "0ca18a7e-0abc-487c-87f8-a37954f91bba",
+					"name": "comment first user2",
+					"url": "http://127.0.0.1:8080/posts/{{user_post_id}}",
 					"description": "",
 					"data": [],
 					"dataMode": "raw",
 					"headerData": [
 						{
+							"description": "",
 							"key": "Content-Type",
 							"name": "Content-Type",
-							"value": "application/json",
-							"description": "",
-							"type": "text"
+							"type": "text",
+							"value": "application/json"
 						}
 					],
 					"method": "POST",
@@ -715,27 +695,112 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "{{TOKEN_test}}",
+								"value": "{{TOKEN2}}",
 								"type": "string"
 							}
 						]
 					},
-					"events": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "33eb370b-9fdc-4fbc-a33b-f5ca62baf0bb",
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"user2_comment_id\", data[\"id\"]);\r",
+									"\r",
+									"pm.test(\"Status code is 2XX\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"});\r",
+									"tests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r",
+									"pm.test(\"user2_comment_content is OK\", function () {\r",
+									"    pm.expect(data[\"content\"]).to.equal(\"comment on something\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"folder": null,
+					"preRequestScript": null,
+					"tests": "var data = pm.response.json();\r\npm.environment.set(\"user2_comment_id\", data[\"id\"]);\r\n\r\npm.test(\"Status code is 2XX\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r\n});\r\ntests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r\npm.test(\"user2_comment_content is OK\", function () {\r\n    pm.expect(data[\"content\"]).to.equal(\"comment on something\");\r\n});",
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
-						"token": "{{TOKEN_test}}"
+						"token": "{{TOKEN2}}"
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 					"rawModeData": "{\r\n    \"content\": \"comment on something\"\r\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				},
 				{
-					"id": "e7c09c6c-0969-4947-a987-6bfd95493f24",
-					"name": "posts get all comments",
-					"url": "http://127.0.0.1:8080/posts/parentId/{{postid_test}}",
+					"id": "244c166c-9ede-4a23-ba35-000418b19e36",
+					"name": "comment second user1",
+					"url": "http://127.0.0.1:8080/posts/{{user_post_id}}",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN1}}",
+								"type": "string"
+							}
+						]
+					},
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e1072a5-b164-4367-b789-8687e42a09b5",
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"user1_comment_id\", data[\"id\"]);\r",
+									"\r",
+									"pm.test(\"Status code is 2XX\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"});\r",
+									"tests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r",
+									"pm.test(\"user1_comment_content is OK\", function () {\r",
+									"    pm.expect(data[\"content\"]).to.equal(\"comment on something again\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "var data = pm.response.json();\r\npm.environment.set(\"user1_comment_id\", data[\"id\"]);\r\n\r\npm.test(\"Status code is 2XX\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r\n});\r\ntests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r\npm.test(\"user1_comment_content is OK\", function () {\r\n    pm.expect(data[\"content\"]).to.equal(\"comment on something again\");\r\n});",
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN1}}"
+					},
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+					"rawModeData": "{\r\n    \"content\": \"comment on something again\"\r\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "37db0bab-8c6b-4678-a31a-b70e54f6f0e4",
+					"name": "get all comments",
+					"url": "http://127.0.0.1:8080/posts/{{user_post_id}}",
 					"description": "",
 					"data": null,
 					"dataMode": null,
@@ -744,48 +809,110 @@
 					"pathVariableData": [],
 					"queryParams": [],
 					"auth": {
-						"type": "bearer",
 						"bearer": [
 							{
 								"key": "token",
-								"value": "",
-								"type": "string"
+								"type": "string",
+								"value": ""
 							}
-						]
+						],
+						"type": "bearer"
 					},
-					"events": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9cab1d0-ccbe-4bbf-83d8-f09fb803273b",
+								"exec": [
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"});\r",
+									"pm.test(\"Content-Type is text/event-stream\", function () {\r",
+									"    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r",
+									"});\r",
+									"pm.test(\"response has 2 items\", function () {\r",
+									"    // 2 comments with 2 lines of data and 3 lines of blank\r",
+									"    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(5);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"folder": null,
+					"preRequestScript": null,
+					"tests": "pm.test(\"Successful GET request\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r\n});\r\npm.test(\"Content-Type is text/event-stream\", function () {\r\n    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r\n});\r\npm.test(\"response has 2 items\", function () {\r\n    // 2 comments with 2 lines of data and 3 lines of blank\r\n    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(5);\r\n});",
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
 						"token": ""
 					},
-					"collectionId": "8331a106-9afe-46e7-8e53-38c45fddcaa5",
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 					"headers": "",
 					"pathVariables": {}
-				}
-			]
-		},
-		{
-			"id": "87595937-3ef2-4828-81a4-1dd59ddf2351",
-			"name": "bbs.automatedTests",
-			"description": "",
-			"auth": null,
-			"events": null,
-			"variables": [],
-			"order": [
-				"2c76cf93-56de-4327-b0fd-abd6e6bd7b2b",
-				"76bf26d6-eb0e-4700-8f0a-9ff9b9fb0749",
-				"9a6af4b3-bab9-466f-be1e-c5de29f1abee",
-				"a14fa5b4-a428-4498-9afa-57fd8fdfe5ad",
-				"5245aaa7-07b2-43e1-803e-259a4cacdf33",
-				"9d737720-99ab-495f-a4e9-c97496978c04"
-			],
-			"folders_order": [],
-			"folders": [],
-			"requests": [
+				},
 				{
-					"id": "2c76cf93-56de-4327-b0fd-abd6e6bd7b2b",
+					"id": "45efe231-f8c8-43d7-9fa6-73e1479f1053",
+					"name": "posts head",
+					"url": "http://127.0.0.1:8080/posts",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN1}}",
+								"type": "string"
+							}
+						]
+					},
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a0c2d69-d8da-48c9-a3e4-b4640bbbd6ab",
+								"exec": [
+									"var user_post_id = pm.response.json()[\"id\"];\r",
+									"pm.environment.set(\"user_post_id\", user_post_id);\r",
+									"\r",
+									"pm.test(\"Status code is 2XX\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"});\r",
+									"tests[\"user_post_id is not null\"] = user_post_id !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "var user_post_id = pm.response.json()[\"id\"];\r\npm.environment.set(\"user_post_id\", user_post_id);\r\n\r\npm.test(\"Status code is 2XX\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r\n});\r\ntests[\"user_post_id is not null\"] = user_post_id !== null;",
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN1}}"
+					},
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+					"rawModeData": "{\r\n    \"content\": \"something\",\r\n    \"community\": \"5cb1f17c80a35f37407791ee\"\r\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "55cc150f-819f-4df2-914f-58533b4ffad0",
 					"name": "get all hot posts anonymous",
 					"url": "http://127.0.0.1:8080/posts/hot",
 					"description": "",
@@ -830,7 +957,7 @@
 									"var data = pm.response.json()\r",
 									"\r",
 									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-									"tests[\"response count\"] = JSONLength(data) === 2;"
+									"tests[\"response count\"] = JSONLength(data) === 3;"
 								],
 								"type": "text/javascript"
 							}
@@ -838,239 +965,18 @@
 					],
 					"folder": null,
 					"preRequestScript": null,
-					"tests": "function JSONLength(obj) {\r\n    var size = 0, key;\r\n    for (key in obj) {\r\n        if (obj.hasOwnProperty(key)) size++;\r\n    }\r\n    return size;\r\n}\r\n\r\nvar data = pm.response.json()\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"response count\"] = JSONLength(data) === 2;",
+					"tests": "function JSONLength(obj) {\r\n    var size = 0, key;\r\n    for (key in obj) {\r\n        if (obj.hasOwnProperty(key)) size++;\r\n    }\r\n    return size;\r\n}\r\n\r\nvar data = pm.response.json()\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"response count\"] = JSONLength(data) === 3;",
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
 						"token": ""
 					},
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 					"headers": "//Accept: application/stream+json\n",
 					"pathVariables": {}
 				},
 				{
-					"id": "5245aaa7-07b2-43e1-803e-259a4cacdf33",
-					"name": "comment first user2",
-					"url": "http://127.0.0.1:8080/posts/{{user_post_id}}",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN2}}"
-							}
-						]
-					},
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "33eb370b-9fdc-4fbc-a33b-f5ca62baf0bb",
-								"exec": [
-									"var data = pm.response.json();\r",
-									"pm.environment.set(\"user2_comment_id\", data[\"id\"]);\r",
-									"\r",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-									"tests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r",
-									"tests[\"user2_comment_content is OK\"] = data[\"content\"] === \"comment on something\";"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var data = pm.response.json();\r\npm.environment.set(\"user2_comment_id\", data[\"id\"]);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"user2_comment_id is not null\"] = data[\"id\"] !== null;\r\ntests[\"user2_comment_content is OK\"] = data[\"content\"] === \"comment on something\";",
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN2}}"
-					},
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
-					"rawModeData": "{\r\n    \"content\": \"comment on something\"\r\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "76bf26d6-eb0e-4700-8f0a-9ff9b9fb0749",
-					"name": "login user1",
-					"url": "http://127.0.0.1:8080/login",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": null,
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
-								"exec": [
-									"// var data = pm.response.json();\r",
-									"// pm.environment.set(“token”, data.token);\r",
-									"var token = pm.response.json()[\"token\"];\r",
-									"pm.environment.set(\"TOKEN1\", token);\r",
-									"\r",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-									"tests[\"token is not null\"] = token !== null;"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "// var data = pm.response.json();\r\n// pm.environment.set(“token”, data.token);\r\nvar token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN1\", token);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"token is not null\"] = token !== null;",
-					"currentHelper": null,
-					"helperAttributes": null,
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
-					"rawModeData": "{\n\t\"username\": \"user1\",\n\t\"password\": \"user1\"\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "9a6af4b3-bab9-466f-be1e-c5de29f1abee",
-					"name": "posts head",
-					"url": "http://127.0.0.1:8080/posts",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN1}}"
-							}
-						]
-					},
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "4a0c2d69-d8da-48c9-a3e4-b4640bbbd6ab",
-								"exec": [
-									"var user_post_id = pm.response.json()[\"id\"];\r",
-									"pm.environment.set(\"user_post_id\", user_post_id);\r",
-									"\r",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-									"tests[\"user_post_id is not null\"] = user_post_id !== null;"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var user_post_id = pm.response.json()[\"id\"];\r\npm.environment.set(\"user_post_id\", user_post_id);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"user_post_id is not null\"] = user_post_id !== null;",
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN1}}"
-					},
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
-					"rawModeData": "{\r\n    \"content\": \"something\"\r\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "9d737720-99ab-495f-a4e9-c97496978c04",
-					"name": "comment second user1",
-					"url": "http://127.0.0.1:8080/posts/{{user_post_id}}",
-					"description": "",
-					"data": [],
-					"dataMode": "raw",
-					"headerData": [
-						{
-							"description": "",
-							"key": "Content-Type",
-							"name": "Content-Type",
-							"type": "text",
-							"value": "application/json"
-						}
-					],
-					"method": "POST",
-					"pathVariableData": [],
-					"queryParams": [],
-					"auth": {
-						"type": "bearer",
-						"bearer": [
-							{
-								"key": "token",
-								"value": "{{TOKEN1}}"
-							}
-						]
-					},
-					"events": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "8e1072a5-b164-4367-b789-8687e42a09b5",
-								"exec": [
-									"var data = pm.response.json();\r",
-									"pm.environment.set(\"user1_comment_id\", data[\"id\"]);\r",
-									"\r",
-									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
-									"tests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r",
-									"tests[\"user1_comment_content is OK\"] = data[\"content\"] === \"comment on something again\";"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"folder": null,
-					"preRequestScript": null,
-					"tests": "var data = pm.response.json();\r\npm.environment.set(\"user1_comment_id\", data[\"id\"]);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"user1_comment_id is not null\"] = data[\"id\"] !== null;\r\ntests[\"user1_comment_content is OK\"] = data[\"content\"] === \"comment on something again\";",
-					"currentHelper": "bearerAuth",
-					"helperAttributes": {
-						"id": "bearer",
-						"token": "{{TOKEN1}}"
-					},
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
-					"rawModeData": "{\r\n    \"content\": \"comment on something again\"\r\n}",
-					"headers": "Content-Type: application/json\n",
-					"pathVariables": {}
-				},
-				{
-					"id": "a14fa5b4-a428-4498-9afa-57fd8fdfe5ad",
+					"id": "9ae10103-a78e-4a8e-825f-283ef28b0f9c",
 					"name": "login user2",
 					"url": "http://127.0.0.1:8080/login",
 					"description": "",
@@ -1112,8 +1018,189 @@
 					"tests": "// var data = pm.response.json();\r\n// pm.environment.set(“token”, data.token);\r\nvar token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN2\", token);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"token is not null\"] = token !== null;",
 					"currentHelper": null,
 					"helperAttributes": null,
-					"collectionId": "87595937-3ef2-4828-81a4-1dd59ddf2351",
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
 					"rawModeData": "{\n\t\"username\": \"user2\",\n\t\"password\": \"user2\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "a41b14fb-e55b-418b-802a-40804c769913",
+					"name": "login user1",
+					"url": "http://127.0.0.1:8080/login",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "440bc647-839b-4ece-a0dc-8a286d9aea57",
+								"exec": [
+									"// var data = pm.response.json();\r",
+									"// pm.environment.set(“token”, data.token);\r",
+									"var token = pm.response.json()[\"token\"];\r",
+									"pm.environment.set(\"TOKEN1\", token);\r",
+									"\r",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"tests[\"token is not null\"] = token !== null;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "// var data = pm.response.json();\r\n// pm.environment.set(“token”, data.token);\r\nvar token = pm.response.json()[\"token\"];\r\npm.environment.set(\"TOKEN1\", token);\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"token is not null\"] = token !== null;",
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+					"rawModeData": "{\n\t\"username\": \"user1\",\n\t\"password\": \"user1\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				}
+			]
+		},
+		{
+			"id": "d9843157-dcb8-4f8b-90ba-4f4fd4987d98",
+			"name": "bbs.community",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"b1a64905-f3d7-4748-96e6-af5adca573f9",
+				"b09277be-3f51-4a60-bb38-a2526a672384",
+				"3ffab3b6-8076-4d44-8cf6-27a0d25bf33d"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
+				{
+					"id": "3ffab3b6-8076-4d44-8cf6-27a0d25bf33d",
+					"name": "communities all",
+					"url": "http://127.0.0.1:8080/communities",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": null,
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "d9843157-dcb8-4f8b-90ba-4f4fd4987d98",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "b09277be-3f51-4a60-bb38-a2526a672384",
+					"name": "communities test",
+					"url": "http://127.0.0.1:8080/communities",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"type": "string"
+							}
+						]
+					},
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac80d427-6d8f-4919-a085-3b0803a61b97",
+								"exec": [
+									"var id = pm.response.json()[\"id\"];\r",
+									"pm.environment.set(\"community_test_id\", id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "var id = pm.response.json()[\"id\"];\r\npm.environment.set(\"community_test_id\", id);",
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "d9843157-dcb8-4f8b-90ba-4f4fd4987d98",
+					"rawModeData": "{\n\t\"name\": \"test\",\n\t\"managers\": [\"admin\"]\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "b1a64905-f3d7-4748-96e6-af5adca573f9",
+					"name": "communities test update",
+					"url": "http://127.0.0.1:8080/communities/{{community_test_id}}",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}",
+								"type": "string"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "d9843157-dcb8-4f8b-90ba-4f4fd4987d98",
+					"rawModeData": "{\n\t\"managers\": [\"user\"]\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				}
@@ -1122,19 +1209,9 @@
 	],
 	"environments": [
 		{
-			"id": "3923bd32-5b35-48d2-8039-baee2a1ce361",
-			"name": "My Workspace - globals",
-			"values": []
-		},
-		{
-			"id": "9faeb4d2-01ac-4023-b154-dea5b6e500c0",
-			"name": "My Workspace - globals",
+			"id": "26979e67-dbac-492a-8826-3c0e54fb9875",
+			"name": "bbs",
 			"values": [
-				{
-					"key": "TOKEN_admin",
-					"value": "",
-					"enabled": true
-				},
 				{
 					"key": "TOKEN",
 					"value": "",
@@ -1148,38 +1225,7 @@
 			]
 		},
 		{
-			"id": "c4de036b-763e-4f40-b853-10c95c3f4267",
-			"name": "My Workspace - globals",
-			"values": [
-				{
-					"key": "TOKEN_test",
-					"value": "",
-					"enabled": true
-				},
-				{
-					"key": "postid_test",
-					"value": "",
-					"enabled": true
-				},
-				{
-					"key": "TOKEN",
-					"value": "",
-					"enabled": true
-				},
-				{
-					"key": "community_test_id",
-					"value": "",
-					"enabled": true
-				},
-				{
-					"key": "TOKEN_admin",
-					"value": "",
-					"enabled": true
-				}
-			]
-		},
-		{
-			"id": "25fa8bb8-4ec7-4a95-a8ca-d1fe036e3429",
+			"id": "289c058d-b9d8-4020-b902-2b8685fcb91d",
 			"name": "My Workspace - globals",
 			"values": []
 		}
