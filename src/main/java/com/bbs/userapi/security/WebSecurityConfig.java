@@ -45,6 +45,8 @@ public class WebSecurityConfig {
             .pathMatchers("/assets/icon/*").permitAll()
             .pathMatchers("/signup").permitAll()
             .pathMatchers("/login").permitAll()
+            .pathMatchers("/chat").permitAll()
+            .pathMatchers("/chat/*").permitAll()
             .pathMatchers("/users").permitAll()
             .pathMatchers("/users/*").permitAll()
             .pathMatchers("/search/users/*").permitAll()

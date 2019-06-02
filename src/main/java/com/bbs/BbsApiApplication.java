@@ -1,5 +1,7 @@
 package com.bbs;
 
+import com.bbs.chatapi.model.Chat;
+import com.bbs.chatapi.model.repository.ChatRepository;
 import com.bbs.communityapi.model.Community;
 import com.bbs.communityapi.model.repository.CommunityRepository;
 import com.bbs.postapi.model.Post;
@@ -34,11 +36,20 @@ public class BbsApiApplication {
     //Keep the rest of the code untouched. Just add the following method
     @Bean
     CommandLineRunner init(ReactiveMongoOperations operations,
+                           ChatRepository chatRepository,
                            UserRepository userRepository,
                            PostRepository postRepository,
                            CommunityRepository communityRepository,
                            PBKDF2Encoder passwordEncoder) {
         return args -> {
+            chatRepository
+                .deleteAll()
+                .thenMany(
+                    chatRepository
+                        .save(new Chat(null, "user2", "user1", "Hello World", LocalDateTime.now()))
+                )
+                .subscribe(System.out::println);
+
             userRepository
                     .deleteAll()
                     .then().block();

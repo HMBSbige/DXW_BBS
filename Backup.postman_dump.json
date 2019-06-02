@@ -216,6 +216,107 @@
 			]
 		},
 		{
+			"id": "25474a3b-481b-4011-857f-7ff4f283ca4d",
+			"name": "bbs.chat",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"83461bf9-8895-4b91-b380-bffa76b39a97",
+				"dccaab25-08cb-4760-8599-41622cbbf5d9"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
+				{
+					"id": "83461bf9-8895-4b91-b380-bffa76b39a97",
+					"name": "user1 to user2",
+					"url": "http://127.0.0.1:8080/chat/user2",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "25474a3b-481b-4011-857f-7ff4f283ca4d",
+					"rawModeData": "{\n\t\"content\": \"Hello World\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "dccaab25-08cb-4760-8599-41622cbbf5d9",
+					"name": "get msg",
+					"url": "http://127.0.0.1:8080/chat?sender=user1&receiver=user2",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": null,
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "sender",
+							"value": "user1",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "receiver",
+							"value": "user2",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{TOKEN}}"
+							}
+						]
+					},
+					"events": null,
+					"folder": null,
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": "{{TOKEN}}"
+					},
+					"collectionId": "25474a3b-481b-4011-857f-7ff4f283ca4d",
+					"pathVariables": {}
+				}
+			]
+		},
+		{
 			"id": "8c000778-6519-42bc-89db-33e02304ddb2",
 			"name": "bbs.post",
 			"description": "",
@@ -229,8 +330,8 @@
 				"a186772a-063c-4ce2-b7a7-66e784a3c14a",
 				"45760e14-dab8-419e-bf11-cea753e2eb91",
 				"123b7341-3311-4a7f-8a0d-479701793aad",
-				"e02d3941-e367-4ca3-975a-e8b448c65cc4",
 				"fab9d409-ddf1-47b7-8e18-702990d8e52d",
+				"e02d3941-e367-4ca3-975a-e8b448c65cc4",
 				"658078c9-ee30-4f77-ae2f-80d5b4122b4f",
 				"e4ec53ec-ce38-419f-8b8b-1331ae41f9da"
 			],
@@ -537,7 +638,7 @@
 				},
 				{
 					"id": "e4ec53ec-ce38-419f-8b8b-1331ae41f9da",
-					"name": "postRedis Copy",
+					"name": "postRedis",
 					"url": "http://127.0.0.1:8080/postsRedis/1",
 					"description": "",
 					"data": null,
@@ -667,7 +768,8 @@
 				"0ca18a7e-0abc-487c-87f8-a37954f91bba",
 				"244c166c-9ede-4a23-ba35-000418b19e36",
 				"37db0bab-8c6b-4678-a31a-b70e54f6f0e4",
-				"3dd42e20-e658-4e44-9786-cb432048b5ba"
+				"3dd42e20-e658-4e44-9786-cb432048b5ba",
+				"7e4fc91b-c7c8-4df3-935e-9f2ce158b179"
 			],
 			"folders_order": [],
 			"folders": [],
@@ -889,7 +991,7 @@
 						"token": "{{TOKEN_admin}}"
 					},
 					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
-					"rawModeData": "{\n\t\"id\": {{user_post_id}},\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}",
+					"rawModeData": "{\n\t\"id\": \"{{user_post_id}}\",\n\t\"community\": \"5cb1f17c80a35f37407791ee\"\n}",
 					"headers": "Content-Type: application/json\n",
 					"pathVariables": {}
 				},
@@ -1008,6 +1110,76 @@
 					"folder": null,
 					"preRequestScript": null,
 					"tests": "function JSONLength(obj) {\r\n    var size = 0, key;\r\n    for (key in obj) {\r\n        if (obj.hasOwnProperty(key)) size++;\r\n    }\r\n    return size;\r\n}\r\n\r\nvar data = pm.response.json()\r\n\r\ntests[\"Status code is 200\"] = responseCode.code === 200;\r\ntests[\"response count\"] = JSONLength(data) === 3;",
+					"currentHelper": "bearerAuth",
+					"helperAttributes": {
+						"id": "bearer",
+						"token": ""
+					},
+					"collectionId": "bcfc7665-838d-4d29-8bbd-0489898dcb81",
+					"headers": "//Accept: application/stream+json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "7e4fc91b-c7c8-4df3-935e-9f2ce158b179",
+					"name": "get all top posts anonymous",
+					"url": "http://127.0.0.1:8080/posts/top?community=5cb1f17c80a35f37407791ee",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [
+						{
+							"description": "",
+							"enabled": false,
+							"key": "Accept",
+							"type": "text",
+							"value": "application/stream+json"
+						}
+					],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "community",
+							"value": "5cb1f17c80a35f37407791ee",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": {
+						"bearer": [
+							{
+								"key": "token",
+								"type": "string",
+								"value": ""
+							}
+						],
+						"type": "bearer"
+					},
+					"events": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9113eed-3895-4ea7-985e-60dee32077f2",
+								"exec": [
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r",
+									"});\r",
+									"pm.test(\"Content-Type is text/event-stream\", function () {\r",
+									"    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r",
+									"});\r",
+									"pm.test(\"response has 1 items\", function () {\r",
+									"    // 1 top post with 1 lines of data and 2 lines of blank\r",
+									"    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"folder": null,
+					"preRequestScript": null,
+					"tests": "pm.test(\"Successful GET request\", function () {\r\n    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);\r\n});\r\npm.test(\"Content-Type is text/event-stream\", function () {\r\n    pm.response.headers[\"Content-Type\"] === \"text/event-stream;charset=UTF-8\";\r\n});\r\npm.test(\"response has 1 items\", function () {\r\n    // 1 top post with 1 lines of data and 2 lines of blank\r\n    pm.expect(pm.response.text().split(\"\\n\").length).to.equal(3);\r\n});",
 					"currentHelper": "bearerAuth",
 					"helperAttributes": {
 						"id": "bearer",
@@ -1272,7 +1444,7 @@
 			]
 		},
 		{
-			"id": "3724c7d2-5378-44a3-88bc-00ff3c7415f1",
+			"id": "56813407-46a4-4cb4-be48-80a725def86e",
 			"name": "My Workspace - globals",
 			"values": []
 		}
